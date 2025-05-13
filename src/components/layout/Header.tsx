@@ -1,8 +1,7 @@
-
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { Menu, X } from 'lucide-react';
-import Icon from '@/components/ui/icon';
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import { Menu, X } from "lucide-react";
+import Icon from "@/components/ui/icon";
 
 const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -17,20 +16,22 @@ const Header = () => {
         <div className="flex items-center justify-between">
           {/* Логотип */}
           <Link to="/" className="flex items-center gap-2">
-            <img 
-              src="https://cdn.poehali.dev/files/b627b5b9-c57e-4ec6-9e93-dce4bf70d2aa.png" 
-              alt="Логотип Преданность" 
+            <img
+              src="https://cdn.poehali.dev/files/b627b5b9-c57e-4ec6-9e93-dce4bf70d2aa.png"
+              alt="Логотип Преданность"
               className="h-12"
             />
             <div className="flex flex-col">
-              <span className="text-xl font-bold text-primary">Преданность</span>
+              <span className="text-xl font-bold text-primary">
+                Преданность
+              </span>
               <span className="text-xs text-gray-600">Приют для животных</span>
             </div>
           </Link>
 
           {/* Мобильная навигация */}
           <div className="md:hidden">
-            <button 
+            <button
               onClick={toggleMobileMenu}
               className="p-2 text-gray-600 focus:outline-none"
               aria-label={mobileMenuOpen ? "Закрыть меню" : "Открыть меню"}
@@ -52,7 +53,7 @@ const Header = () => {
 
         {/* Мобильное меню */}
         {mobileMenuOpen && (
-          <div className="md:hidden animate-fade-in mt-4 pb-2">
+          <div className="md:hidden fade-in-animation mt-4 pb-2">
             <nav className="flex flex-col gap-4">
               <MobileNavLink to="/" onClick={toggleMobileMenu}>
                 Главная
@@ -63,8 +64,8 @@ const Header = () => {
               <MobileNavLink to="/found-pet" onClick={toggleMobileMenu}>
                 Нашел питомца
               </MobileNavLink>
-              <MobileNavLink 
-                to="/support" 
+              <MobileNavLink
+                to="/support"
                 onClick={toggleMobileMenu}
                 className="bg-accent text-white py-2 px-4 rounded-md text-center"
               >
@@ -86,9 +87,9 @@ interface NavLinkProps {
 
 const NavLink = ({ to, children, className }: NavLinkProps) => {
   return (
-    <Link 
-      to={to} 
-      className={`text-gray-700 hover:text-primary font-medium transition-colors ${className || ''}`}
+    <Link
+      to={to}
+      className={`text-gray-700 hover:text-primary font-medium transition-colors ${className || ""}`}
     >
       {children}
     </Link>
@@ -99,11 +100,16 @@ interface MobileNavLinkProps extends NavLinkProps {
   onClick: () => void;
 }
 
-const MobileNavLink = ({ to, onClick, children, className }: MobileNavLinkProps) => {
+const MobileNavLink = ({
+  to,
+  onClick,
+  children,
+  className,
+}: MobileNavLinkProps) => {
   return (
-    <Link 
-      to={to} 
-      className={`block py-2 text-gray-700 hover:text-primary font-medium transition-colors ${className || ''}`}
+    <Link
+      to={to}
+      className={`block py-2 text-gray-700 hover:text-primary font-medium transition-colors ${className || ""}`}
       onClick={onClick}
     >
       {children}

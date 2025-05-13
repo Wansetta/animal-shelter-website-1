@@ -1,5 +1,4 @@
-
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Open+Sans:wght@300;400;500;600&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Open+Sans:wght@300;400;500;600&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -76,24 +75,51 @@
 
   body {
     @apply bg-background text-foreground font-sans;
-    font-family: 'Open Sans', sans-serif;
+    font-family: "Open Sans", sans-serif;
   }
 
-  h1, h2, h3, h4, h5, h6 {
-    font-family: 'Montserrat', sans-serif;
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: "Montserrat", sans-serif;
     @apply font-semibold;
   }
 
   .container {
     @apply px-4 md:px-6 lg:px-8;
   }
-  
-  .animate-fade-in {
-    @apply animate-fade-in;
+
+  /* Исправлено: Удалена круговая зависимость */
+  /* Вместо @apply используем классы напрямую */
+  .fade-in-animation {
+    animation: fadeIn 0.3s ease-out;
   }
-  
-  .animate-slide-in {
-    @apply animate-slide-in-from-right;
+
+  .slide-in-animation {
+    animation: slideIn 0.3s ease-out;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes slideIn {
+    from {
+      transform: translateX(100%);
+    }
+    to {
+      transform: translateX(0);
+    }
   }
 }
 
@@ -101,27 +127,27 @@
   .pet-card {
     @apply bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300;
   }
-  
+
   .pet-card-image {
     @apply h-56 w-full object-cover;
   }
-  
+
   .pet-card-content {
     @apply p-4;
   }
-  
+
   .btn-primary {
     @apply bg-primary text-white hover:bg-primary-light px-4 py-2 rounded-md transition-colors;
   }
-  
+
   .btn-accent {
     @apply bg-accent text-white hover:bg-accent-light px-4 py-2 rounded-md transition-colors;
   }
-  
+
   .section-title {
     @apply text-2xl md:text-3xl font-bold mb-6 text-primary;
   }
-  
+
   .page-title {
     @apply text-3xl md:text-4xl font-bold mb-8 text-primary;
   }
