@@ -9,6 +9,7 @@ import Catalog from "./pages/Catalog";
 import PetDetail from "./pages/PetDetail";
 import FoundPet from "./pages/FoundPet";
 import Support from "./pages/Support";
+import Sitemap from "./pages/Sitemap";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -26,6 +27,7 @@ const App = () => (
           <Route path="/pet/:id" element={<PetDetail />} />
           <Route path="/found-pet" element={<FoundPet />} />
           <Route path="/support" element={<Support />} />
+          <Route path="/sitemap" element={<Sitemap />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
