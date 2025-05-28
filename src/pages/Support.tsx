@@ -104,7 +104,7 @@ const Support = () => {
                   </p>
                   <div className="bg-gray-50 rounded p-2 text-center">
                     <span className="text-sm font-medium">
-                      5555 5555 5555 5555
+                      2202 2032 6731 6925
                     </span>
                   </div>
                 </div>
@@ -113,14 +113,15 @@ const Support = () => {
                 <div className="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow">
                   <div className="flex items-center gap-2 mb-3">
                     <Building size={20} className="text-primary" />
-                    <h4 className="font-medium">Счет организации</h4>
+                    <h4 className="font-medium">СберБанк</h4>
                   </div>
                   <p className="text-sm text-gray-600 mb-4">
-                    Реквизиты для юридических лиц
+                    Расчетный счет приюта
                   </p>
-                  <button className="w-full text-sm text-primary border border-primary rounded-md py-1 hover:bg-primary/5 transition-colors">
-                    Показать реквизиты
-                  </button>
+                  <div className="bg-gray-50 rounded p-2 text-center text-xs">
+                    <div>40703810955000003439</div>
+                    <div className="text-gray-500 mt-1">БИК: 044525225</div>
+                  </div>
                 </div>
 
                 {/* Электронные платежи */}
