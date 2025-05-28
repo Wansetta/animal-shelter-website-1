@@ -131,11 +131,13 @@ const Support = () => {
                     <h4 className="font-medium">Электронные деньги</h4>
                   </div>
                   <p className="text-sm text-gray-600 mb-4">
-                    Пожертвования через платежные системы
+                    Пожертвования через платежные системы Яндекс.Деньги
                   </p>
-                  <button className="w-full text-sm bg-primary text-white rounded-md py-1 hover:bg-primary-light transition-colors">
-                    Перейти к оплате
-                  </button>
+                  <div className="bg-gray-50 rounded p-2 text-center">
+                    <span className="text-sm font-medium">
+                      410011313668841
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>

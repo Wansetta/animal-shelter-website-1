@@ -31,15 +31,6 @@ const StatsSection = () => {
             <div className="text-4xl font-bold text-white mb-2">300+</div>
             <div className="text-white/80">Нашли новый дом</div>
           </div>
-
-          {/* Статистика - Волонтеров */}
-          <div className="text-center">
-            <div className="w-16 h-16 bg-white/10 rounded-full flex items-center justify-center mx-auto mb-4">
-              <Users size={32} className="text-white" />
-            </div>
-            <div className="text-4xl font-bold text-white mb-2">50+</div>
-            <div className="text-white/80">Волонтеров</div>
-          </div>
         </div>
       </div>
     </section>

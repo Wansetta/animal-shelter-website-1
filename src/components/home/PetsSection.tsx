@@ -62,7 +62,7 @@ const mockPets: PetInfo[] = [
     description:
       "Умный и послушный пес. Хорошо поддается дрессировке, знает базовые команды. Любит плавать и играть с мячом.",
     image: "https://images.unsplash.com/photo-1518717758536-85ae29035b6d",
-    status: "adopted",
+    status: "available",
   },
   {
     id: "6",

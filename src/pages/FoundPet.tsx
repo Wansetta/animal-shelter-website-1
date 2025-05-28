@@ -115,7 +115,6 @@ const FoundPet = () => {
                         <option value="baby">Детеныш</option>
                         <option value="young">Молодое животное</option>
                         <option value="adult">Взрослое животное</option>
-                        <option value="senior">Пожилое животное</option>
                       </select>
                     </div>
                   </div>

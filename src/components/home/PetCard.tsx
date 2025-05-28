@@ -11,7 +11,7 @@ export interface PetInfo {
   gender: 'male' | 'female';
   description: string;
   image: string;
-  status: 'available' | 'reserved' | 'adopted';
+  status: 'available' | 'reserved';
 }
 
 interface PetCardProps {
@@ -23,14 +23,12 @@ const PetCard = ({ pet }: PetCardProps) => {
   const statusColors = {
     available: 'bg-green-100 text-green-800',
     reserved: 'bg-yellow-100 text-yellow-800',
-    adopted: 'bg-blue-100 text-blue-800'
   };
 
   // Переводим статус на русский
   const statusText = {
     available: 'Ищет дом',
     reserved: 'Зарезервирован',
-    adopted: 'Нашел дом'
   };
 
   // Переводим тип животного на русский

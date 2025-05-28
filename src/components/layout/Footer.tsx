@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import Icon from "@/components/ui/icon";
-import { Facebook, Instagram, Phone, Mail, MapPin } from "lucide-react";
+import { Phone, Mail, MapPin } from "lucide-react";
 
 const Footer = () => {
   return (
@@ -15,48 +15,6 @@ const Footer = () => {
               хозяев. Наша миссия — дарить животным вторую жизнь и шанс на
               счастье.
             </p>
-          </div>
-
-          {/* Социальные сети */}
-          <div>
-            <h3 className="text-xl font-bold mb-4">Социальные сети</h3>
-            <div className="flex gap-4 mt-4">
-              <a
-                href="https://vk.com/predannost"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:text-accent-light transition-colors"
-                aria-label="Мы ВКонтакте"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <path d="M15.5 9c1 0 1 .5 1 1.5l-1 2.5h2l-.5 2h-2L15 22h-3l-.5-7H9l.5-2h2l.5-3c0-2 0-3 2.5-3Z" />
-                </svg>
-              </a>
-              <a
-                href="#"
-                className="hover:text-accent-light transition-colors"
-                aria-label="Мы в Instagram"
-              >
-                <Instagram size={24} />
-              </a>
-              <a
-                href="#"
-                className="hover:text-accent-light transition-colors"
-                aria-label="Мы в Facebook"
-              >
-                <Facebook size={24} />
-              </a>
-            </div>
           </div>
 
           {/* Навигация */}
@@ -108,21 +66,23 @@ const Footer = () => {
                   href="tel:+7XXXXXXXXXX"
                   className="hover:text-accent-light transition-colors"
                 >
-                  +7 (XXX) XXX-XX-XX
+                  +7 (903) 912-27-75
                 </a>
               </li>
               <li className="flex items-center gap-2">
                 <Mail size={18} />
                 <a
-                  href="mailto:predannost@example.com"
+                  href="mailto:wansetta@mail.ru
+"
                   className="hover:text-accent-light transition-colors"
                 >
-                  predannost@example.com
+                  wansetta@mail.ru
+
                 </a>
               </li>
               <li className="flex items-start gap-2">
                 <MapPin size={18} className="mt-1" />
-                <span>Адрес приюта, город, улица, дом</span>
+                <span>Майская ул., 20, корп. 7, посёлок Сорокино</span>
               </li>
             </ul>
           </div>

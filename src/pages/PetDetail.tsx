@@ -68,7 +68,7 @@ const mockPets: PetInfo[] = [
     description:
       "Умный и послушный пес. Хорошо поддается дрессировке, знает базовые команды. Любит плавать и играть с мячом.",
     image: "https://images.unsplash.com/photo-1518717758536-85ae29035b6d",
-    status: "adopted",
+    status: "available",
   },
   {
     id: "6",
@@ -122,13 +122,11 @@ const PetDetail = () => {
   const statusColors = {
     available: "bg-green-100 text-green-800",
     reserved: "bg-yellow-100 text-yellow-800",
-    adopted: "bg-blue-100 text-blue-800",
   };
 
   const statusText = {
     available: "Ищет дом",
     reserved: "Зарезервирован",
-    adopted: "Нашел дом",
   };
 
   const petType = {
@@ -207,17 +205,7 @@ const PetDetail = () => {
             {pet.status === "reserved" && (
               <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
                 <p className="text-yellow-800">
-                  Этот питомец уже зарезервирован, но вы можете оставить заявку
-                  на случай, если планы изменятся.
-                </p>
-              </div>
-            )}
-
-            {pet.status === "adopted" && (
-              <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-                <p className="text-blue-800">
-                  Этот питомец уже нашел свой дом! Посмотрите других наших
-                  подопечных.
+                  Этот питомец уже зарезервирован.
                 </p>
               </div>
             )}
@@ -284,7 +272,7 @@ const PetDetail = () => {
                     onChange={(e) =>
                       setFormData({ ...formData, message: e.target.value })
                     }
-                    placeholder="Расскажите о себе и почему хотите взять именно этого питомца..."
+                    placeholder="Расскажите о себе..."
                     rows={4}
                   />
                 </div>

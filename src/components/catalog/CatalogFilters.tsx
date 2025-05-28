@@ -69,7 +69,6 @@ const CatalogFilters = ({
             <SelectItem value="all">Любой статус</SelectItem>
             <SelectItem value="available">Ищет дом</SelectItem>
             <SelectItem value="reserved">Зарезервирован</SelectItem>
-            <SelectItem value="adopted">Нашел дом</SelectItem>
           </SelectContent>
         </Select>
 
@@ -80,7 +79,6 @@ const CatalogFilters = ({
           <SelectContent>
             <SelectItem value="name">По имени</SelectItem>
             <SelectItem value="age">По возрасту</SelectItem>
-            <SelectItem value="breed">По породе</SelectItem>
           </SelectContent>
         </Select>
 
