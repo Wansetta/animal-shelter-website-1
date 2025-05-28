@@ -7,8 +7,7 @@ import {
   Camera,
   DollarSign,
   CreditCard,
-  Building,
-  Facebook,
+  Building,,
 } from "lucide-react";
 
 const Support = () => {
@@ -189,28 +188,6 @@ const Support = () => {
                   транспортировка животных к ветеринару, фотосъемка питомцев для
                   сайта.
                 </p>
-                <div className="flex gap-3">
-                  <button className="flex items-center gap-1 text-sm bg-[#4C75A3] text-white px-3 py-1 rounded-md hover:bg-opacity-90 transition-colors">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    >
-                      <path d="M15.5 9c1 0 1 .5 1 1.5l-1 2.5h2l-.5 2h-2L15 22h-3l-.5-7H9l.5-2h2l.5-3c0-2 0-3 2.5-3Z" />
-                    </svg>
-                    Поделиться ВК
-                  </button>
-                  <button className="flex items-center gap-1 text-sm bg-[#3b5998] text-white px-3 py-1 rounded-md hover:bg-opacity-90 transition-colors">
-                    <Facebook size={16} />
-                    Поделиться в Facebook
-                  </button>
-                </div>
               </div>
             </div>
           </div>

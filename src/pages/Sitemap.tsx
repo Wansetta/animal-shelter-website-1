@@ -33,11 +33,6 @@ const Sitemap = () => {
                       Как вы можете помочь
                     </span>
                   </li>
-                  <li>
-                    <span className="text-gray-600 text-sm">
-                      Истории успеха
-                    </span>
-                  </li>
                 </ul>
               </div>
 
@@ -61,11 +56,6 @@ const Sitemap = () => {
                       Детальная информация
                     </span>
                   </li>
-                  <li>
-                    <span className="text-gray-600 text-sm">
-                      Детальная информация
-                    </span>
-                  </li>
                 </ul>
               </div>
 
@@ -80,17 +70,12 @@ const Sitemap = () => {
                       to="/about"
                       className="text-blue-600 hover:text-blue-800 hover:underline"
                     >
-                      Наша миссия
+                      Коротко о нас
                     </Link>
                   </li>
                   <li>
                     <span className="text-gray-600 text-sm">
                       Как мы помогаем
-                    </span>
-                  </li>
-                  <li>
-                    <span className="text-gray-600 text-sm">
-                      Команда проекта
                     </span>
                   </li>
                 </ul>
@@ -134,17 +119,17 @@ const Sitemap = () => {
                       to="/support"
                       className="text-blue-600 hover:text-blue-800 hover:underline"
                     >
-                      Связаться с нами
+                      Поддержите наш приют
                     </Link>
                   </li>
                   <li>
                     <span className="text-gray-600 text-sm">
-                      Часто задаваемые вопросы
+                      Финансовая поддержка
                     </span>
                   </li>
                   <li>
                     <span className="text-gray-600 text-sm">
-                      Помощь проекту
+                      Другие способы помочь
                     </span>
                   </li>
                 </ul>
