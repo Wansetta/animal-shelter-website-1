@@ -25,40 +25,27 @@ const Sitemap = () => {
                       to="/"
                       className="text-blue-600 hover:text-blue-800 hover:underline"
                     >
-                      Новости
+                      Главная страница
                     </Link>
                   </li>
                   <li>
-                    <span className="text-gray-700">Профиль</span>
-                    <ul className="ml-4 mt-1 space-y-1">
-                      <li>
-                        <span className="text-gray-600 text-sm">
-                          Личные сообщения
-                        </span>
-                      </li>
-                      <li>
-                        <span className="text-gray-600 text-sm">
-                          Изменение анкеты
-                        </span>
-                      </li>
-                      <li>
-                        <span className="text-gray-600 text-sm">
-                          Смена пароля для входа
-                        </span>
-                      </li>
-                    </ul>
+                    <span className="text-gray-600 text-sm">
+                      Поиск питомцев
+                    </span>
                   </li>
                   <li>
-                    <span className="text-gray-600 text-sm">Мои подписки</span>
+                    <span className="text-gray-600 text-sm">
+                      Истории успеха
+                    </span>
                   </li>
                 </ul>
               </div>
 
-              {/* Каталог */}
+              {/* Каталог питомцев */}
               <div>
                 <h2 className="text-lg font-semibold text-primary mb-3 flex items-center gap-2">
-                  <Icon name="Grid3X3" size={20} />
-                  Каталог
+                  <Icon name="Heart" size={20} />
+                  Каталог питомцев
                 </h2>
                 <ul className="ml-6 space-y-2">
                   <li>
@@ -66,22 +53,26 @@ const Sitemap = () => {
                       to="/catalog"
                       className="text-blue-600 hover:text-blue-800 hover:underline"
                     >
-                      Баннеры
+                      Все питомцы
                     </Link>
                   </li>
                   <li>
-                    <span className="text-gray-700">Зоны</span>
+                    <span className="text-gray-600 text-sm">
+                      Фильтры поиска
+                    </span>
                   </li>
                   <li>
-                    <span className="text-gray-700">Компании</span>
+                    <span className="text-gray-600 text-sm">
+                      Детальная информация
+                    </span>
                   </li>
                 </ul>
               </div>
 
-              {/* О нас */}
+              {/* О проекте */}
               <div>
                 <h2 className="text-lg font-semibold text-primary mb-3 flex items-center gap-2">
-                  <Icon name="Info" size={20} />О нас
+                  <Icon name="Info" size={20} />О проекте
                 </h2>
                 <ul className="ml-6 space-y-2">
                   <li>
@@ -89,27 +80,27 @@ const Sitemap = () => {
                       to="/about"
                       className="text-blue-600 hover:text-blue-800 hover:underline"
                     >
-                      Обмен купшами
+                      Наша миссия
                     </Link>
                   </li>
                   <li>
-                    <span className="text-gray-700">Магазин</span>
-                    <ul className="ml-4 mt-1 space-y-1">
-                      <li>
-                        <span className="text-gray-600 text-sm">
-                          Каталог товаров
-                        </span>
-                      </li>
-                    </ul>
+                    <span className="text-gray-600 text-sm">
+                      Как мы помогаем
+                    </span>
+                  </li>
+                  <li>
+                    <span className="text-gray-600 text-sm">
+                      Команда проекта
+                    </span>
                   </li>
                 </ul>
               </div>
 
-              {/* Нашел питомца */}
+              {/* Нашёл питомца */}
               <div>
                 <h2 className="text-lg font-semibold text-primary mb-3 flex items-center gap-2">
-                  <Icon name="Heart" size={20} />
-                  Нашел питомца
+                  <Icon name="MapPin" size={20} />
+                  Нашёл питомца
                 </h2>
                 <ul className="ml-6 space-y-2">
                   <li>
@@ -117,17 +108,25 @@ const Sitemap = () => {
                       to="/found-pet"
                       className="text-blue-600 hover:text-blue-800 hover:underline"
                     >
-                      Карта сайта
+                      Сообщить о находке
                     </Link>
+                  </li>
+                  <li>
+                    <span className="text-gray-600 text-sm">Форма с фото</span>
+                  </li>
+                  <li>
+                    <span className="text-gray-600 text-sm">
+                      Указание местоположения
+                    </span>
                   </li>
                 </ul>
               </div>
 
-              {/* Поддержать нас */}
+              {/* Поддержка */}
               <div>
                 <h2 className="text-lg font-semibold text-primary mb-3 flex items-center gap-2">
                   <Icon name="HandHeart" size={20} />
-                  Поддержать нас
+                  Поддержка
                 </h2>
                 <ul className="ml-6 space-y-2">
                   <li>
@@ -135,35 +134,18 @@ const Sitemap = () => {
                       to="/support"
                       className="text-blue-600 hover:text-blue-800 hover:underline"
                     >
-                      Форум v2
+                      Связаться с нами
                     </Link>
-                    <ul className="ml-4 mt-1 space-y-1">
-                      <li>
-                        <span className="text-gray-600 text-sm">
-                          Часто задаваемые вопросы
-                        </span>
-                      </li>
-                      <li>
-                        <span className="text-gray-600 text-sm">
-                          Карта по расширению функционала
-                        </span>
-                      </li>
-                      <li>
-                        <span className="text-gray-600 text-sm">
-                          Возможности форума
-                        </span>
-                      </li>
-                      <li>
-                        <span className="text-gray-600 text-sm">
-                          Природные и человеческие катастрофы
-                        </span>
-                      </li>
-                      <li>
-                        <span className="text-gray-600 text-sm">
-                          Защита от космоса – наиболее эффективные решения
-                        </span>
-                      </li>
-                    </ul>
+                  </li>
+                  <li>
+                    <span className="text-gray-600 text-sm">
+                      Часто задаваемые вопросы
+                    </span>
+                  </li>
+                  <li>
+                    <span className="text-gray-600 text-sm">
+                      Помощь проекту
+                    </span>
                   </li>
                 </ul>
               </div>
