@@ -134,9 +134,7 @@ const Support = () => {
                     Пожертвования через платежные системы Яндекс.Деньги
                   </p>
                   <div className="bg-gray-50 rounded p-2 text-center">
-                    <span className="text-sm font-medium">
-                      410011313668841
-                    </span>
+                    <span className="text-sm font-medium">410011313668841</span>
                   </div>
                 </div>
               </div>
@@ -183,13 +181,13 @@ const Support = () => {
 
               <div>
                 <h3 className="font-semibold text-lg mb-3">
-                  Информационная поддержка
+                  Волонтерская помощь
                 </h3>
-                <p className="text-gray-700 mb-3">
-                  Расскажите о нашем приюте друзьям и знакомым, поделитесь
-                  информацией о наших питомцах в социальных сетях. Чем больше
-                  людей узнает о нас, тем больше шансов у наших подопечных найти
-                  новый дом.
+                <p className="text-gray-700">
+                  Мы всегда рады новым волонтерам! Если у вас есть время и
+                  желание помочь нашим питомцам, свяжитесь с нами. Вы можете
+                  помогать с уходом за животными, уборкой, выгулом собак или
+                  участвовать в мероприятиях приюта.
                 </p>
                 <div className="flex gap-3">
                   <button className="flex items-center gap-1 text-sm bg-[#4C75A3] text-white px-3 py-1 rounded-md hover:bg-opacity-90 transition-colors">
