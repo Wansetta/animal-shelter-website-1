@@ -30,7 +30,7 @@ const Sitemap = () => {
                   </li>
                   <li>
                     <span className="text-gray-600 text-sm">
-                      Поиск питомцев
+                      Как вы можете помочь
                     </span>
                   </li>
                   <li>
@@ -58,7 +58,7 @@ const Sitemap = () => {
                   </li>
                   <li>
                     <span className="text-gray-600 text-sm">
-                      Фильтры поиска
+                      Детальная информация
                     </span>
                   </li>
                   <li>
