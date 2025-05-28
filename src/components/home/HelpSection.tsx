@@ -12,7 +12,7 @@ const HelpSection = () => {
           именно вам.
         </p>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {/* Карточка "Взять питомца" */}
           <div className="bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow text-center">
             <div className="w-16 h-16 bg-primary/10 text-primary rounded-full flex items-center justify-center mx-auto mb-4">
@@ -24,28 +24,10 @@ const HelpSection = () => {
               большая помощь!
             </p>
             <Link
-              to="/pets"
+              to="/#pets"
               className="text-primary hover:text-primary-dark font-medium"
             >
               Посмотреть питомцев →
-            </Link>
-          </div>
-
-          {/* Карточка "Стать волонтером" */}
-          <div className="bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow text-center">
-            <div className="w-16 h-16 bg-primary/10 text-primary rounded-full flex items-center justify-center mx-auto mb-4">
-              <Dog size={32} />
-            </div>
-            <h3 className="text-xl font-bold mb-3">Стать волонтером</h3>
-            <p className="text-gray-600 mb-4">
-              Присоединяйтесь к нашей команде волонтеров и помогайте ухаживать
-              за животными.
-            </p>
-            <Link
-              to="/about#volunteer"
-              className="text-primary hover:text-primary-dark font-medium"
-            >
-              Узнать больше →
             </Link>
           </div>
 
