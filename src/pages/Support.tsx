@@ -8,6 +8,7 @@ import {
   DollarSign,
   CreditCard,
   Building,
+  Facebook,
 } from "lucide-react";
 
 const Support = () => {
