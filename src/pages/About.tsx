@@ -51,7 +51,7 @@ const About = () => {
               <p>
                 Адрес: п. Сорокино, ул. Майская, 20, корп. 7<br />
                 Телефон: +7 (903) 912-27-75<br />
-                Email: wansetta@mail.ru<br />
+                Email: predannost-biysk@mail.ru<br />
                 Группа ВКонтакте: <a href="https://vk.com/predannost" target="_blank" rel="noopener noreferrer">vk.com/predannost</a>
               </p>
               <p>
