@@ -137,10 +137,7 @@ const PetsSection = () => {
 
         {/* Убираем кнопку "Смотреть всех" - теперь показываем всех питомцев */}
         <div className="text-center mt-10">
-          <Link
-            to="/pets"
-            className="inline-block bg-primary text-white hover:bg-primary-light px-6 py-3 rounded-md font-medium transition-colors"
-          >
+          <Link to="/catalog" className="btn-primary">
             Смотреть всех питомцев
           </Link>
         </div>

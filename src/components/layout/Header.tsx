@@ -42,7 +42,7 @@ const Header = () => {
 
           {/* Десктопная навигация */}
           <nav className="hidden md:flex items-center gap-6">
-            <NavLink to="/">Главная</NavLink>
+            <NavLink to="/catalog">Каталог</NavLink>
             <NavLink to="/about">О нас</NavLink>
             <NavLink to="/found-pet">Нашел питомца</NavLink>
             <NavLink to="/support" className="btn-accent">
