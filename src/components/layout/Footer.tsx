@@ -91,14 +91,6 @@ const Footer = () => {
                 <MapPin size={18} className="mt-1" />
                 <span>п. Сорокино, ул. Майская, 20, корп. 7</span>
               </li>
-              <li>
-                <Link
-                  to="/sitemap"
-                  className="hover:text-accent-light transition-colors"
-                >
-                  Карта сайта
-                </Link>
-              </li>
             </ul>
           </div>
         </div>
