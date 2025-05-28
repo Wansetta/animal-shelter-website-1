@@ -13,6 +13,27 @@ const FoundPet = () => {
     lng: number;
     address: string;
   } | null>(null);
+  const [addressValue, setAddressValue] = useState("");
+
+  // Обработчик сообщений от iframe карты
+  const handleMapMessage = (event: MessageEvent) => {
+    if (event.origin !== "https://yandex.ru") return;
+
+    if (event.data && event.data.address) {
+      setAddressValue(event.data.address);
+      setSelectedLocation({
+        lat: event.data.lat || 0,
+        lng: event.data.lng || 0,
+        address: event.data.address,
+      });
+    }
+  };
+
+  // Подписка на сообщения от карты
+  React.useEffect(() => {
+    window.addEventListener("message", handleMapMessage);
+    return () => window.removeEventListener("message", handleMapMessage);
+  }, []);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -96,18 +117,35 @@ const FoundPet = () => {
                         required
                         placeholder="Укажите адрес или район"
                         className="flex-grow"
+                        value={addressValue}
+                        onChange={(e) => setAddressValue(e.target.value)}
                       />
                       <Button
                         type="button"
                         variant="outline"
                         className="flex items-center gap-2"
+                        onClick={() => {
+                          const mapFrame = document.getElementById(
+                            "yandex-map",
+                          ) as HTMLIFrameElement;
+                          if (mapFrame) {
+                            mapFrame.focus();
+                          }
+                        }}
                       >
                         <MapPin size={16} /> Указать на карте
                       </Button>
                     </div>
-                    <div className="bg-gray-100 h-64 rounded-md flex items-center justify-center text-gray-500">
-                      Здесь будет карта для отметки места, где был найден
-                      питомец
+                    <div className="rounded-md overflow-hidden shadow-sm">
+                      <iframe
+                        id="yandex-map"
+                        src="https://yandex.ru/map-widget/v1/?um=constructor%3A0859f700c79c518b5f770a711324b7bc66bd004cd68a87231b197b440b8f6a1d&amp;source=constructor"
+                        width="100%"
+                        height="526"
+                        frameBorder="0"
+                        title="Карта для указания места находки питомца"
+                        className="w-full"
+                      />
                     </div>
                   </div>
 
