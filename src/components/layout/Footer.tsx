@@ -53,6 +53,14 @@ const Footer = () => {
                   Поддержать нас
                 </Link>
               </li>
+              <li>
+                <Link
+                  to="/sitemap"
+                  className="hover:text-accent-light transition-colors"
+                >
+                  Карта сайта
+                </Link>
+              </li>
             </ul>
           </div>
 
@@ -77,12 +85,19 @@ const Footer = () => {
                   className="hover:text-accent-light transition-colors"
                 >
                   predannost-biysk@mail.ru
-
                 </a>
               </li>
               <li className="flex items-start gap-2">
                 <MapPin size={18} className="mt-1" />
                 <span>п. Сорокино, ул. Майская, 20, корп. 7</span>
+              </li>
+              <li>
+                <Link
+                  to="/sitemap"
+                  className="hover:text-accent-light transition-colors"
+                >
+                  Карта сайта
+                </Link>
               </li>
             </ul>
           </div>
