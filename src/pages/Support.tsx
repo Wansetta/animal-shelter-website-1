@@ -7,7 +7,7 @@ import {
   Camera,
   DollarSign,
   CreditCard,
-  Building,,
+  Building,
 } from "lucide-react";
 
 const Support = () => {
