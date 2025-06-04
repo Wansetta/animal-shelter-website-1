@@ -1,46 +1,93 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
-import PetCard from "./PetCard";
-import { animalService } from "@/services/animalService";
-import { Animal } from "@/lib/database";
+import PetCard, { PetInfo } from "./PetCard";
+
+// Моковые данные о питомцах
+const mockPets: PetInfo[] = [
+  {
+    id: "1",
+    name: "Барон",
+    type: "dog",
+    breed: "Немецкая овчарка",
+    age: "3 года",
+    gender: "male",
+    description:
+      "Дружелюбный и активный пес, любит играть с мячом и обожает долгие прогулки. Хорошо ладит с детьми и другими животными.",
+    image: "https://images.unsplash.com/photo-1551717743-49959800b1f6",
+    status: "available",
+  },
+  {
+    id: "2",
+    name: "Муся",
+    type: "cat",
+    breed: "Сибирская",
+    age: "2 года",
+    gender: "female",
+    description:
+      "Спокойная и ласковая кошка. Любит сидеть на коленях и мурлыкать. Приучена к лотку и когтеточке.",
+    image: "https://images.unsplash.com/photo-1533738363-b7f9aef128ce",
+    status: "available",
+  },
+  {
+    id: "3",
+    name: "Рекс",
+    type: "dog",
+    breed: "Дворняжка",
+    age: "5 лет",
+    gender: "male",
+    description:
+      "Верный и преданный пес. Отлично подойдет для охраны дома. Любит детей и будет прекрасным компаньоном для семьи.",
+    image: "https://images.unsplash.com/photo-1586671267731-da2cf3ceeb80",
+    status: "reserved",
+  },
+  {
+    id: "4",
+    name: "Лиза",
+    type: "cat",
+    breed: "Британская короткошерстная",
+    age: "1 год",
+    gender: "female",
+    description:
+      "Игривая и любопытная кошечка. Обожает игрушки и активные игры. Очень ласковая и общительная.",
+    image: "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba",
+    status: "available",
+  },
+  {
+    id: "5",
+    name: "Тобик",
+    type: "dog",
+    breed: "Лабрадор",
+    age: "4 года",
+    gender: "male",
+    description:
+      "Умный и послушный пес. Хорошо поддается дрессировке, знает базовые команды. Любит плавать и играть с мячом.",
+    image: "https://images.unsplash.com/photo-1518717758536-85ae29035b6d",
+    status: "available",
+  },
+  {
+    id: "6",
+    name: "Соня",
+    type: "cat",
+    breed: "Мейн-кун",
+    age: "3 года",
+    gender: "female",
+    description:
+      "Крупная и очень ласковая кошка. Любит внимание и общение. Отлично ладит с другими животными.",
+    image: "https://images.unsplash.com/photo-1478098711619-5ab0b478d6e6",
+    status: "available",
+  },
+];
 
 const PetsSection = () => {
-  const [animals, setAnimals] = useState<Animal[]>([]);
-  const [loading, setLoading] = useState(true);
   const [activeFilter, setActiveFilter] = useState<"all" | "dog" | "cat">(
     "all",
   );
 
-  useEffect(() => {
-    const loadAnimals = async () => {
-      try {
-        const data = await animalService.getAllAnimals();
-        setAnimals(data);
-      } catch (error) {
-        console.error("Ошибка загрузки животных:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    loadAnimals();
-  }, []);
-
   // Фильтруем питомцев по типу
-  const filteredAnimals =
+  const filteredPets =
     activeFilter === "all"
-      ? animals
-      : animals.filter((animal) => animal.type === activeFilter);
-
-  if (loading) {
-    return (
-      <section className="py-16 bg-gray-50">
-        <div className="container mx-auto text-center">
-          <p>Загрузка питомцев...</p>
-        </div>
-      </section>
-    );
-  }
+      ? mockPets
+      : mockPets.filter((pet) => pet.type === activeFilter);
 
   return (
     <section className="py-16 bg-gray-50">
@@ -83,8 +130,8 @@ const PetsSection = () => {
 
         {/* Карточки питомцев */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredAnimals.map((animal) => (
-            <PetCard key={animal.id} pet={animal} />
+          {filteredPets.map((pet) => (
+            <PetCard key={pet.id} pet={pet} />
           ))}
         </div>
 

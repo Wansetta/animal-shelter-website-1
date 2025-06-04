@@ -44,7 +44,7 @@ export interface Transfer {
 }
 
 // Простое хранилище в памяти (позже можно заменить на SQLite)
-export class InMemoryDatabase {
+class InMemoryDatabase {
   private animals: Animal[] = [];
   private employees: Employee[] = [];
   private guardians: Guardian[] = [];
