@@ -1,7 +1,16 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
-import { Menu, X } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
+import { Menu, X, Settings } from "lucide-react";
 import Icon from "@/components/ui/icon";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 
 const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -48,6 +57,7 @@ const Header = () => {
             <NavLink to="/support" className="btn-accent">
               Поддержать нас
             </NavLink>
+            <AdminButton />
           </nav>
         </div>
 
@@ -71,6 +81,9 @@ const Header = () => {
               >
                 Поддержать нас
               </MobileNavLink>
+              <div className="pt-2">
+                <AdminButton />
+              </div>
             </nav>
           </div>
         )}
@@ -114,6 +127,65 @@ const MobileNavLink = ({
     >
       {children}
     </Link>
+  );
+};
+
+const AdminButton = () => {
+  const [password, setPassword] = useState("");
+  const [isOpen, setIsOpen] = useState(false);
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
+
+  const handleSubmit = () => {
+    if (password === "Admin1") {
+      setIsOpen(false);
+      setPassword("");
+      setError("");
+      navigate("/admin");
+    } else {
+      setError("Неверный пароль");
+    }
+  };
+
+  const handleClose = () => {
+    setIsOpen(false);
+    setPassword("");
+    setError("");
+  };
+
+  return (
+    <Dialog open={isOpen} onOpenChange={setIsOpen}>
+      <DialogTrigger asChild>
+        <Button
+          variant="ghost"
+          size="sm"
+          className="text-gray-500 hover:text-primary"
+        >
+          <Settings size={18} />
+        </Button>
+      </DialogTrigger>
+      <DialogContent className="sm:max-w-md">
+        <DialogHeader>
+          <DialogTitle>Администрирование</DialogTitle>
+        </DialogHeader>
+        <div className="space-y-4">
+          <Input
+            type="password"
+            placeholder="Введите пароль"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            onKeyPress={(e) => e.key === "Enter" && handleSubmit()}
+          />
+          {error && <p className="text-red-500 text-sm">{error}</p>}
+          <div className="flex gap-2 justify-end">
+            <Button variant="outline" onClick={handleClose}>
+              Отмена
+            </Button>
+            <Button onClick={handleSubmit}>Войти</Button>
+          </div>
+        </div>
+      </DialogContent>
+    </Dialog>
   );
 };
 
