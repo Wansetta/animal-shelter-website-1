@@ -19,8 +19,7 @@ import {
 } from "@/components/ui/select";
 import { Card, CardContent } from "@/components/ui/card";
 import Icon from "@/components/ui/icon";
-import { Animal } from "@/lib/database";
-import { animalService } from "@/services/animalService";
+import { Animal, animalService } from "@/services/animalService";
 
 interface PetEditModalProps {
   isOpen: boolean;

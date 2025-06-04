@@ -1,80 +1,54 @@
-import { InMemoryDatabase, Animal, Guardian, Transfer } from "@/lib/database";
+// Упрощенный сервис без базы данных
 import animalsData from "@/data/animals.json";
 
+export interface Animal {
+  id: string;
+  name: string;
+  type: "dog" | "cat" | "other";
+  breed: string;
+  age: string;
+  gender: "male" | "female";
+  description?: string;
+  image: string;
+  status: "available" | "reserved" | "adopted";
+  vaccination: boolean;
+  microchipped: boolean;
+  admission_date: string;
+  dateAdded: string;
+}
+
 class AnimalService {
-  private db = new InMemoryDatabase();
-  private initialized = false;
-
-  async initialize() {
-    if (this.initialized) return;
-
-    // Загружаем данные из JSON
-    for (const animalData of animalsData) {
-      const animal: Animal = {
-        id: animalData.id,
-        name: animalData.name,
-        type: animalData.type as "dog" | "cat" | "other",
-        breed: animalData.breed,
-        age: animalData.age,
-        gender: animalData.gender as "male" | "female",
-        description: animalData.description,
-        image: animalData.image_url,
-        status: animalData.status as "available" | "reserved" | "adopted",
-        vaccination: animalData.vaccination,
-        microchipped: animalData.microchipped,
-        admission_date: animalData.admission_date,
-        dateAdded: new Date().toISOString(),
-      };
-      this.db.createAnimal(animal);
-    }
-
-    this.initialized = true;
-  }
-
   async getAllAnimals(): Promise<Animal[]> {
-    await this.initialize();
-    return this.db.getAllAnimals();
+    return animalsData.map((animal) => ({
+      id: animal.id,
+      name: animal.name,
+      type: animal.type as "dog" | "cat" | "other",
+      breed: animal.breed,
+      age: animal.age,
+      gender: animal.gender as "male" | "female",
+      description: animal.description,
+      image: animal.image_url,
+      status: animal.status as "available" | "reserved" | "adopted",
+      vaccination: animal.vaccination,
+      microchipped: animal.microchipped,
+      admission_date: animal.admission_date,
+      dateAdded: new Date().toISOString(),
+    }));
   }
 
   async getAnimalById(id: string): Promise<Animal | undefined> {
-    await this.initialize();
-    return this.db.getAnimalById(id);
+    const animals = await this.getAllAnimals();
+    return animals.find((animal) => animal.id === id);
   }
 
   async getAvailableAnimals(): Promise<Animal[]> {
-    await this.initialize();
-    return this.db.getAnimalsByStatus("available");
+    const animals = await this.getAllAnimals();
+    return animals.filter((animal) => animal.status === "available");
   }
 
   async getAnimalsByType(type: "dog" | "cat" | "other"): Promise<Animal[]> {
-    await this.initialize();
-    return this.db.getAnimalsByType(type);
-  }
-
-  async createGuardian(
-    guardian: Omit<Guardian, "id" | "registrationDate">,
-  ): Promise<Guardian> {
-    await this.initialize();
-    const newGuardian: Guardian = {
-      ...guardian,
-      id: Date.now().toString(),
-      registrationDate: new Date().toISOString(),
-    };
-    return this.db.createGuardian(newGuardian);
-  }
-
-  async reserveAnimal(animalId: string, guardianId: string): Promise<void> {
-    await this.initialize();
-    this.db.updateAnimalStatus(animalId, "reserved");
-
-    const transfer: Transfer = {
-      id: Date.now().toString(),
-      animalId,
-      guardianId,
-      transferDate: new Date().toISOString(),
-      status: "pending",
-    };
-    this.db.createTransfer(transfer);
+    const animals = await this.getAllAnimals();
+    return animals.filter((animal) => animal.type === type);
   }
 }
 
