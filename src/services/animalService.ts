@@ -1,5 +1,4 @@
-// Упрощенный сервис без базы данных
-import animalsData from "@/data/animals.json";
+import { supabase } from "@/lib/supabase";
 
 export interface Animal {
   id: string;
@@ -19,36 +18,146 @@ export interface Animal {
 
 class AnimalService {
   async getAllAnimals(): Promise<Animal[]> {
-    return animalsData.map((animal) => ({
-      id: animal.id,
-      name: animal.name,
-      type: animal.type as "dog" | "cat" | "other",
-      breed: animal.breed,
-      age: animal.age,
-      gender: animal.gender as "male" | "female",
-      description: animal.description,
-      image: animal.image_url,
-      status: animal.status as "available" | "reserved" | "adopted",
-      vaccination: animal.vaccination,
-      microchipped: animal.microchipped,
-      admission_date: animal.admission_date,
-      dateAdded: new Date().toISOString(),
-    }));
+    try {
+      const { data, error } = await supabase
+        .from("animals")
+        .select("*")
+        .order("created_at", { ascending: false });
+
+      if (error) {
+        console.error("Error fetching animals:", error);
+        return [];
+      }
+
+      return (
+        data?.map((animal) => ({
+          id: animal.id,
+          name: animal.name,
+          type: animal.type,
+          breed: animal.breed,
+          age: animal.age,
+          gender: animal.gender,
+          description: animal.description,
+          image: animal.image_url || animal.image,
+          status: animal.status,
+          vaccination: animal.vaccination,
+          microchipped: animal.microchipped,
+          admission_date: animal.admission_date,
+          dateAdded: animal.created_at || new Date().toISOString(),
+        })) || []
+      );
+    } catch (error) {
+      console.error("Error in getAllAnimals:", error);
+      return [];
+    }
   }
 
   async getAnimalById(id: string): Promise<Animal | undefined> {
-    const animals = await this.getAllAnimals();
-    return animals.find((animal) => animal.id === id);
+    try {
+      const { data, error } = await supabase
+        .from("animals")
+        .select("*")
+        .eq("id", id)
+        .single();
+
+      if (error) {
+        console.error("Error fetching animal by id:", error);
+        return undefined;
+      }
+
+      if (!data) return undefined;
+
+      return {
+        id: data.id,
+        name: data.name,
+        type: data.type,
+        breed: data.breed,
+        age: data.age,
+        gender: data.gender,
+        description: data.description,
+        image: data.image_url || data.image,
+        status: data.status,
+        vaccination: data.vaccination,
+        microchipped: data.microchipped,
+        admission_date: data.admission_date,
+        dateAdded: data.created_at || new Date().toISOString(),
+      };
+    } catch (error) {
+      console.error("Error in getAnimalById:", error);
+      return undefined;
+    }
   }
 
   async getAvailableAnimals(): Promise<Animal[]> {
-    const animals = await this.getAllAnimals();
-    return animals.filter((animal) => animal.status === "available");
+    try {
+      const { data, error } = await supabase
+        .from("animals")
+        .select("*")
+        .eq("status", "available")
+        .order("created_at", { ascending: false });
+
+      if (error) {
+        console.error("Error fetching available animals:", error);
+        return [];
+      }
+
+      return (
+        data?.map((animal) => ({
+          id: animal.id,
+          name: animal.name,
+          type: animal.type,
+          breed: animal.breed,
+          age: animal.age,
+          gender: animal.gender,
+          description: animal.description,
+          image: animal.image_url || animal.image,
+          status: animal.status,
+          vaccination: animal.vaccination,
+          microchipped: animal.microchipped,
+          admission_date: animal.admission_date,
+          dateAdded: animal.created_at || new Date().toISOString(),
+        })) || []
+      );
+    } catch (error) {
+      console.error("Error in getAvailableAnimals:", error);
+      return [];
+    }
   }
 
   async getAnimalsByType(type: "dog" | "cat" | "other"): Promise<Animal[]> {
-    const animals = await this.getAllAnimals();
-    return animals.filter((animal) => animal.type === type);
+    try {
+      const { data, error } = await supabase
+        .from("animals")
+        .select("*")
+        .eq("type", type)
+        .order("created_at", { ascending: false });
+
+      if (error) {
+        console.error("Error fetching animals by type:", error);
+        return [];
+      }
+
+      return (
+        data?.map((animal) => ({
+          id: animal.id,
+          name: animal.name,
+          type: animal.type,
+          breed: animal.breed,
+          age: animal.age,
+          gender: animal.gender,
+          description: animal.description,
+          image: animal.image_url || animal.image,
+          status: animal.status,
+          vaccination: animal.vaccination,
+          microchipped: animal.microchipped,
+          admission_date: animal.admission_date,
+          dateAdded: animal.created_at || new Date().toISOString(),
+        })) || []
+      );
+    } catch (error) {
+      console.error("Error in getAnimalsByType:", error);
+      return [];
+    }
   }
 }
 

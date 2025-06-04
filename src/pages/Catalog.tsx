@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Header from "@/components/layout/Header";
 import PetCard, { PetInfo } from "@/components/home/PetCard";
+import { animalService } from "@/services/animalService";
 import {
   Select,
   SelectContent,
@@ -85,15 +86,43 @@ const mockPets: PetInfo[] = [
 ];
 
 const Catalog = () => {
-  const [pets, setPets] = useState<PetInfo[]>(mockPets);
+  const [pets, setPets] = useState<PetInfo[]>([]);
+  const [loading, setLoading] = useState(true);
   const [typeFilter, setTypeFilter] = useState<string>("all");
   const [genderFilter, setGenderFilter] = useState<string>("all");
   const [statusFilter, setStatusFilter] = useState<string>("all");
   const [sortBy, setSortBy] = useState<string>("name");
 
+  useEffect(() => {
+    const fetchPets = async () => {
+      setLoading(true);
+      try {
+        const animals = await animalService.getAllAnimals();
+        const petInfo: PetInfo[] = animals.map((animal) => ({
+          id: animal.id,
+          name: animal.name,
+          type: animal.type,
+          breed: animal.breed,
+          age: animal.age,
+          gender: animal.gender,
+          description: animal.description,
+          image: animal.image,
+          status: animal.status,
+        }));
+        setPets(petInfo);
+      } catch (error) {
+        console.error("Error fetching pets:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchPets();
+  }, []);
+
   // Функция фильтрации и сортировки
   const getFilteredAndSortedPets = () => {
-    let filtered = mockPets.filter((pet) => {
+    let filtered = pets.filter((pet) => {
       if (typeFilter !== "all" && pet.type !== typeFilter) return false;
       if (genderFilter !== "all" && pet.gender !== genderFilter) return false;
       if (statusFilter !== "all" && pet.status !== statusFilter) return false;
@@ -211,7 +240,12 @@ const Catalog = () => {
         </div>
 
         {/* Сетка питомцев */}
-        {filteredPets.length > 0 ? (
+        {loading ? (
+          <div className="text-center py-12">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+            <p className="text-gray-600">Загрузка питомцев...</p>
+          </div>
+        ) : filteredPets.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredPets.map((pet) => (
               <PetCard key={pet.id} pet={pet} />

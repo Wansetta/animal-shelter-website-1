@@ -7,87 +7,13 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { ArrowLeft, Heart, Calendar, User } from "lucide-react";
 import { PetInfo } from "@/components/home/PetCard";
-
-// Моковые данные питомцев (те же что в PetsSection)
-const mockPets: PetInfo[] = [
-  {
-    id: "1",
-    name: "Барон",
-    type: "dog",
-    breed: "Немецкая овчарка",
-    age: "3 года",
-    gender: "male",
-    description:
-      "Дружелюбный и активный пес, любит играть с мячом и обожает долгие прогулки. Хорошо ладит с детьми и другими животными.",
-    image: "https://images.unsplash.com/photo-1551717743-49959800b1f6",
-    status: "available",
-  },
-  {
-    id: "2",
-    name: "Муся",
-    type: "cat",
-    breed: "Сибирская",
-    age: "2 года",
-    gender: "female",
-    description:
-      "Спокойная и ласковая кошка. Любит сидеть на коленях и мурлыкать. Приучена к лотку и когтеточке.",
-    image: "https://images.unsplash.com/photo-1533738363-b7f9aef128ce",
-    status: "available",
-  },
-  {
-    id: "3",
-    name: "Рекс",
-    type: "dog",
-    breed: "Дворняжка",
-    age: "5 лет",
-    gender: "male",
-    description:
-      "Верный и преданный пес. Отлично подойдет для охраны дома. Любит детей и будет прекрасным компаньоном для семьи.",
-    image: "https://images.unsplash.com/photo-1586671267731-da2cf3ceeb80",
-    status: "reserved",
-  },
-  {
-    id: "4",
-    name: "Лиза",
-    type: "cat",
-    breed: "Британская короткошерстная",
-    age: "1 год",
-    gender: "female",
-    description:
-      "Игривая и любопытная кошечка. Обожает игрушки и активные игры. Очень ласковая и общительная.",
-    image: "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba",
-    status: "available",
-  },
-  {
-    id: "5",
-    name: "Тобик",
-    type: "dog",
-    breed: "Лабрадор",
-    age: "4 года",
-    gender: "male",
-    description:
-      "Умный и послушный пес. Хорошо поддается дрессировке, знает базовые команды. Любит плавать и играть с мячом.",
-    image: "https://images.unsplash.com/photo-1518717758536-85ae29035b6d",
-    status: "available",
-  },
-  {
-    id: "6",
-    name: "Соня",
-    type: "cat",
-    breed: "Мейн-кун",
-    age: "3 года",
-    gender: "female",
-    description:
-      "Крупная и очень ласковая кошка. Любит внимание и общение. Отлично ладит с другими животными.",
-    image: "https://images.unsplash.com/photo-1478098711619-5ab0b478d6e6",
-    status: "available",
-  },
-];
+import { animalService } from "@/services/animalService";
 
 const PetDetail = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const [pet, setPet] = useState<PetInfo | null>(null);
+  const [loading, setLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
@@ -97,8 +23,34 @@ const PetDetail = () => {
   });
 
   useEffect(() => {
-    const foundPet = mockPets.find((p) => p.id === id);
-    setPet(foundPet || null);
+    const fetchPet = async () => {
+      if (!id) return;
+
+      setLoading(true);
+      try {
+        const animal = await animalService.getAnimalById(id);
+        if (animal) {
+          const petInfo: PetInfo = {
+            id: animal.id,
+            name: animal.name,
+            type: animal.type,
+            breed: animal.breed,
+            age: animal.age,
+            gender: animal.gender,
+            description: animal.description,
+            image: animal.image,
+            status: animal.status,
+          };
+          setPet(petInfo);
+        }
+      } catch (error) {
+        console.error("Error fetching pet:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchPet();
   }, [id]);
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -107,6 +59,16 @@ const PetDetail = () => {
     setShowForm(false);
     setFormData({ name: "", phone: "", email: "", message: "" });
   };
+
+  if (loading) {
+    return (
+      <Layout>
+        <div className="min-h-screen flex items-center justify-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
+        </div>
+      </Layout>
+    );
+  }
 
   if (!pet) {
     return (
