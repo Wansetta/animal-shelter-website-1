@@ -3,8 +3,10 @@ import Header from "@/components/layout/Header";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Icon from "@/components/ui/icon";
+import PetEditModal from "@/components/admin/PetEditModal";
 
 const Admin = () => {
+  const [isPetEditModalOpen, setIsPetEditModalOpen] = useState(false);
   const [stats] = useState({
     totalPets: 42,
     adoptedThisMonth: 8,
@@ -67,13 +69,22 @@ const Admin = () => {
                 <Icon name="Mail" size={20} />
                 Просмотреть заявки
               </Button>
-              <Button variant="outline" className="h-16 flex flex-col gap-2">
-                <Icon name="Settings" size={20} />
-                Настройки сайта
+              <Button
+                variant="outline"
+                className="h-16 flex flex-col gap-2"
+                onClick={() => setIsPetEditModalOpen(true)}
+              >
+                <Icon name="Edit" size={20} />
+                Редактирование каталога
               </Button>
             </div>
           </CardContent>
         </Card>
+
+        <PetEditModal
+          isOpen={isPetEditModalOpen}
+          onClose={() => setIsPetEditModalOpen(false)}
+        />
       </div>
     </div>
   );
