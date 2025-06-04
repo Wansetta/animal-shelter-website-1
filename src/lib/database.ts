@@ -10,6 +10,9 @@ export interface Animal {
   description?: string;
   image_url?: string;
   status: "available" | "reserved" | "adopted";
+  vaccination: boolean;
+  microchipped: boolean;
+  admission_date: string;
   created_at?: string;
   updated_at?: string;
 }

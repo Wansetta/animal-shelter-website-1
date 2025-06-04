@@ -20,6 +20,9 @@ class AnimalService {
         description: animalData.description,
         image: animalData.image_url,
         status: animalData.status as "available" | "reserved" | "adopted",
+        vaccination: animalData.vaccination,
+        microchipped: animalData.microchipped,
+        admission_date: animalData.admission_date,
         dateAdded: new Date().toISOString(),
       };
       this.db.createAnimal(animal);
