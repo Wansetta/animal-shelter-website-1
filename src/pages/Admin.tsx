@@ -7,12 +7,6 @@ import PetEditModal from "@/components/admin/PetEditModal";
 
 const Admin = () => {
   const [isPetEditModalOpen, setIsPetEditModalOpen] = useState(false);
-  const [stats] = useState({
-    totalPets: 42,
-    adoptedThisMonth: 8,
-    pendingApplications: 15,
-    volunteers: 23,
-  });
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -24,34 +18,6 @@ const Admin = () => {
             Панель администратора
           </h1>
           <p className="text-gray-600">Управление приютом "Преданность"</p>
-        </div>
-
-        {/* Статистика */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-          <StatCard
-            title="Питомцы"
-            value={stats.totalPets}
-            icon="Heart"
-            color="text-blue-600"
-          />
-          <StatCard
-            title="Пристроено за месяц"
-            value={stats.adoptedThisMonth}
-            icon="Home"
-            color="text-green-600"
-          />
-          <StatCard
-            title="Заявки на рассмотрении"
-            value={stats.pendingApplications}
-            icon="FileText"
-            color="text-orange-600"
-          />
-          <StatCard
-            title="Волонтёры"
-            value={stats.volunteers}
-            icon="Users"
-            color="text-purple-600"
-          />
         </div>
 
         {/* Быстрые действия */}
@@ -87,29 +53,6 @@ const Admin = () => {
         />
       </div>
     </div>
-  );
-};
-
-interface StatCardProps {
-  title: string;
-  value: number;
-  icon: string;
-  color: string;
-}
-
-const StatCard = ({ title, value, icon, color }: StatCardProps) => {
-  return (
-    <Card>
-      <CardContent className="p-6">
-        <div className="flex items-center justify-between">
-          <div>
-            <p className="text-sm font-medium text-gray-600">{title}</p>
-            <p className="text-2xl font-bold text-gray-900">{value}</p>
-          </div>
-          <Icon name={icon} size={24} className={color} />
-        </div>
-      </CardContent>
-    </Card>
   );
 };
 
