@@ -112,29 +112,14 @@ const FoundPet = () => {
                     <label className="block text-sm font-medium text-gray-700 mb-1">
                       Где вы нашли животное? *
                     </label>
-                    <div className="flex gap-2 mb-2">
-                      <Input
-                        required
-                        placeholder="Укажите адрес или район"
-                        className="flex-grow"
-                        value={addressValue}
-                        onChange={(e) => setAddressValue(e.target.value)}
-                      />
-                      <Button
-                        type="button"
-                        variant="outline"
-                        className="flex items-center gap-2"
-                        onClick={() => {
-                          const mapFrame = document.getElementById(
-                            "yandex-map",
-                          ) as HTMLIFrameElement;
-                          if (mapFrame) {
-                            mapFrame.focus();
-                          }
-                        }}
-                      >
-                        <MapPin size={16} /> Указать на карте
-                      </Button>
+                    <div className="mb-2">
+                      <div className="flex-1">
+                        <Input
+                          placeholder="Адрес где нашли питомца"
+                          value={addressValue}
+                          onChange={(e) => setAddressValue(e.target.value)}
+                        />
+                      </div>
                     </div>
                     <div className="rounded-md overflow-hidden shadow-sm">
                       <iframe
