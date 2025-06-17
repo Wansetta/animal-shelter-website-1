@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { animalService } from "@/services/animalService";
+import { emailService } from "@/services/emailService";
 
 interface GuardianFormProps {
   animalId: string;
@@ -32,21 +32,28 @@ const GuardianForm = ({
     setSubmitting(true);
 
     try {
-      const guardian = await animalService.createGuardian({
-        name: formData.name,
-        phone: formData.phone,
-        email: formData.email,
+      const success = await emailService.sendGuardianApplication({
+        petName: animalName,
+        petId: animalId,
+        userName: formData.name,
+        userPhone: formData.phone,
+        userEmail: formData.email,
         address: formData.address,
         experience: formData.experience,
+        message: formData.message,
       });
 
-      await animalService.reserveAnimal(animalId, guardian.id);
-
-      alert("Заявка успешно отправлена! Мы свяжемся с вами в ближайшее время.");
-      onSuccess();
+      if (success) {
+        alert(
+          "Заявка успешно отправлена! Мы свяжемся с вами в ближайшее время.",
+        );
+        onSuccess();
+      } else {
+        alert("Произошла ошибка при отправке заявки. Попробуйте еще раз.");
+      }
     } catch (error) {
       console.error("Ошибка отправки заявки:", error);
-      alert("Произошла ошибка. Попробуйте еще раз.");
+      alert("Произошла ошибка при отправке заявки. Попробуйте еще раз.");
     } finally {
       setSubmitting(false);
     }
