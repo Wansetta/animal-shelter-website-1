@@ -78,27 +78,20 @@ const Admin = () => {
           <p className="text-gray-600">Управление приютом "Преданность"</p>
         </div>
 
-        {/* Быстрые действия */}
-        <Card className="mb-8">
-          <CardHeader>
-            <CardTitle>Быстрые действия</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <Button className="h-16 flex flex-col gap-2">
-                <Icon name="Plus" size={20} />
-                Добавить питомца
-              </Button>
-            </div>
-          </CardContent>
-        </Card>
+        {/* Быстрые действия - удаляем секцию */}
 
         {/* Редактирование каталога */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* Список питомцев */}
           <Card>
             <CardHeader>
-              <CardTitle>Каталог питомцев</CardTitle>
+              <div className="flex justify-between items-center">
+                <CardTitle>Каталог питомцев</CardTitle>
+                <Button className="flex items-center gap-2">
+                  <Icon name="Plus" size={16} />
+                  Добавить питомца
+                </Button>
+              </div>
             </CardHeader>
             <CardContent>
               <div className="space-y-2 max-h-96 overflow-y-auto">
