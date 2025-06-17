@@ -5,7 +5,6 @@ import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Check, MapPin, Upload } from "lucide-react";
 import MapSelector from "@/components/MapSelector";
-import { emailService } from "@/services/emailService";
 
 const FoundPet = () => {
   const [formSubmitted, setFormSubmitted] = useState(false);
@@ -36,33 +35,14 @@ const FoundPet = () => {
     return () => window.removeEventListener("message", handleMapMessage);
   }, []);
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    // В реальном приложении здесь был бы код для отправки данных на сервер
+    // Имитируем успешную отправку формы
+    setFormSubmitted(true);
 
-    const formData = new FormData(e.target as HTMLFormElement);
-
-    try {
-      const success = await emailService.sendFoundPetReport({
-        userName: formData.get("name") as string,
-        userPhone: formData.get("phone") as string,
-        userEmail: (formData.get("email") as string) || undefined,
-        location: addressValue,
-        petType: formData.get("petType") as string,
-        petAge: (formData.get("petAge") as string) || undefined,
-        description: formData.get("description") as string,
-        additionalInfo: (formData.get("additionalInfo") as string) || undefined,
-      });
-
-      if (success) {
-        setFormSubmitted(true);
-        window.scrollTo({ top: 0, behavior: "smooth" });
-      } else {
-        alert("Произошла ошибка при отправке сообщения. Попробуйте еще раз.");
-      }
-    } catch (error) {
-      console.error("Ошибка отправки сообщения:", error);
-      alert("Произошла ошибка при отправке сообщения. Попробуйте еще раз.");
-    }
+    // Прокручиваем страницу вверх, чтобы показать сообщение об успешной отправке
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   return (
@@ -107,14 +87,13 @@ const FoundPet = () => {
                       <label className="block text-sm font-medium text-gray-700 mb-1">
                         Ваше имя *
                       </label>
-                      <Input name="name" required placeholder="Иван Иванов" />
+                      <Input required placeholder="Иван Иванов" />
                     </div>
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-1">
                         Телефон *
                       </label>
                       <Input
-                        name="phone"
                         required
                         type="tel"
                         placeholder="+7 (___) ___-__-__"
@@ -126,11 +105,7 @@ const FoundPet = () => {
                     <label className="block text-sm font-medium text-gray-700 mb-1">
                       Адрес электронной почты
                     </label>
-                    <Input
-                      name="email"
-                      type="email"
-                      placeholder="example@mail.ru"
-                    />
+                    <Input type="email" placeholder="example@mail.ru" />
                   </div>
 
                   <div className="mb-6">
@@ -180,32 +155,24 @@ const FoundPet = () => {
                         Тип животного *
                       </label>
                       <select
-                        name="petType"
                         required
                         className="w-full h-10 rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
                       >
                         <option value="">Выберите тип</option>
-                        <option value="Собака">Собака</option>
-                        <option value="Кошка">Кошка</option>
-                        <option value="Другое животное">Другое животное</option>
+                        <option value="dog">Собака</option>
+                        <option value="cat">Кошка</option>
+                        <option value="other">Другое животное</option>
                       </select>
                     </div>
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-1">
                         Примерный возраст
                       </label>
-                      <select
-                        name="petAge"
-                        className="w-full h-10 rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-                      >
+                      <select className="w-full h-10 rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
                         <option value="">Выберите возраст</option>
-                        <option value="Детеныш">Детеныш</option>
-                        <option value="Молодое животное">
-                          Молодое животное
-                        </option>
-                        <option value="Взрослое животное">
-                          Взрослое животное
-                        </option>
+                        <option value="baby">Детеныш</option>
+                        <option value="young">Молодое животное</option>
+                        <option value="adult">Взрослое животное</option>
                       </select>
                     </div>
                   </div>
@@ -216,7 +183,6 @@ const FoundPet = () => {
                     </label>
                     <Textarea
                       required
-                      name="description"
                       placeholder="Опишите внешний вид животного (окрас, размер, особые приметы и т.д.)"
                       className="min-h-[100px]"
                     />
@@ -249,7 +215,6 @@ const FoundPet = () => {
                       Дополнительная информация
                     </label>
                     <Textarea
-                      name="additionalInfo"
                       placeholder="Укажите любую дополнительную информацию, которая может быть полезна (состояние животного, поведение и т.д.)"
                       className="min-h-[100px]"
                     />

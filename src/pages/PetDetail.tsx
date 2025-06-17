@@ -7,7 +7,6 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { ArrowLeft, Heart, Calendar, User } from "lucide-react";
 import { PetInfo } from "@/components/home/PetCard";
-import { emailService } from "@/services/emailService";
 
 // Моковые данные питомцев (те же что в PetsSection)
 const mockPets: PetInfo[] = [
@@ -102,30 +101,11 @@ const PetDetail = () => {
     setPet(foundPet || null);
   }, [id]);
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-
-    try {
-      const success = await emailService.sendPetApplication({
-        petName: pet.name,
-        petId: pet.id,
-        userName: formData.name,
-        userPhone: formData.phone,
-        userEmail: formData.email,
-        message: formData.message,
-      });
-
-      if (success) {
-        alert("Заявка отправлена! Мы свяжемся с вами в ближайшее время.");
-        setShowForm(false);
-        setFormData({ name: "", phone: "", email: "", message: "" });
-      } else {
-        alert("Произошла ошибка при отправке заявки. Попробуйте еще раз.");
-      }
-    } catch (error) {
-      console.error("Ошибка отправки заявки:", error);
-      alert("Произошла ошибка при отправке заявки. Попробуйте еще раз.");
-    }
+    alert("Заявка отправлена! Мы свяжемся с вами в ближайшее время.");
+    setShowForm(false);
+    setFormData({ name: "", phone: "", email: "", message: "" });
   };
 
   if (!pet) {
