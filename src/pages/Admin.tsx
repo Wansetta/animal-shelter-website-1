@@ -31,10 +31,7 @@ const Admin = () => {
                 <Icon name="Plus" size={20} />
                 Добавить питомца
               </Button>
-              <Button variant="outline" className="h-16 flex flex-col gap-2">
-                <Icon name="Mail" size={20} />
-                Просмотреть заявки
-              </Button>
+
               <Button
                 variant="outline"
                 className="h-16 flex flex-col gap-2"
