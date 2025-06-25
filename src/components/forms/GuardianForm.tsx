@@ -58,7 +58,7 @@ const GuardianForm = ({
         await animalService.reserveAnimal(animalId, guardian.id);
 
         alert(
-          "Заявка успешно отправлена! Мы свяжемся с вами в ближайшее время.",
+          "Заявка отправлена! Если письмо не дошло автоматически, откроется почтовый клиент для ручной отправки.",
         );
         onSuccess();
       } else {

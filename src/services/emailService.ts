@@ -101,17 +101,53 @@ class EmailService {
 
   private async sendEmail(emailData: EmailData): Promise<boolean> {
     try {
-      // Создаем mailto ссылку для отправки через email клиент
+      // Используем EmailJS для отправки писем
+      const response = await fetch(
+        "https://api.emailjs.com/api/v1.0/email/send",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            service_id: "service_predannost",
+            template_id: "template_application",
+            user_id: "user_predannost_key",
+            template_params: {
+              to_email: emailData.to,
+              subject: emailData.subject,
+              message: this.htmlToText(emailData.html),
+              html_message: emailData.html,
+            },
+          }),
+        },
+      );
+
+      if (response.ok) {
+        console.log("Email отправлен успешно");
+        return true;
+      } else {
+        console.error("Ошибка отправки email:", response.statusText);
+        // Fallback на mailto для совместимости
+        return this.fallbackMailto(emailData);
+      }
+    } catch (error) {
+      console.error("Ошибка отправки email:", error);
+      // Fallback на mailto для совместимости
+      return this.fallbackMailto(emailData);
+    }
+  }
+
+  private fallbackMailto(emailData: EmailData): boolean {
+    try {
       const subject = encodeURIComponent(emailData.subject);
       const body = encodeURIComponent(this.htmlToText(emailData.html));
       const mailtoUrl = `mailto:${emailData.to}?subject=${subject}&body=${body}`;
 
-      // Открываем email клиент
       window.open(mailtoUrl, "_blank");
-
       return true;
     } catch (error) {
-      console.error("Ошибка отправки email:", error);
+      console.error("Ошибка fallback mailto:", error);
       return false;
     }
   }
