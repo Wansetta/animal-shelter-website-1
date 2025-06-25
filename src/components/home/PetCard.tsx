@@ -81,6 +81,27 @@ const PetCard = ({ pet }: PetCardProps) => {
 
         <p className="text-gray-700 mb-4 line-clamp-2">{pet.description}</p>
 
+        <div className="text-xs flex items-center gap-3 mt-2">
+          <Badge
+            className={
+              pet.vaccination
+                ? "bg-green-100 text-green-800"
+                : "bg-red-100 text-red-800"
+            }
+          >
+            {pet.vaccination ? "💉 Привит" : "💉 Не привит"}
+          </Badge>
+          <Badge
+            className={
+              pet.microchipped
+                ? "bg-blue-100 text-blue-800"
+                : "bg-gray-100 text-gray-600"
+            }
+          >
+            {pet.microchipped ? "🔗 Чипирован" : "🔗 Не чипирован"}
+          </Badge>
+        </div>
+
         <Link
           to={`/pet/${pet.id}`}
           className="block text-center bg-primary text-white hover:bg-primary-light py-2 rounded-md transition-colors"
