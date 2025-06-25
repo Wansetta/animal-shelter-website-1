@@ -498,9 +498,8 @@ const Admin = () => {
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="available">Доступен</SelectItem>
+                        <SelectItem value="available">Ищет дом</SelectItem>
                         <SelectItem value="reserved">Зарезервирован</SelectItem>
-                        <SelectItem value="adopted">Пристроен</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
