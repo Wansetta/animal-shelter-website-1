@@ -93,12 +93,12 @@ const PetCard = ({ pet }: PetCardProps) => {
           </Badge>
           <Badge
             className={
-              pet.microchip
+              pet.microchipped
                 ? "bg-blue-100 text-blue-800"
                 : "bg-gray-100 text-gray-600"
             }
           >
-            {pet.microchip ? "🔗 Чипирован" : "🔗 Не чипирован"}
+            {pet.microchipped ? "🔗 Чипирован" : "🔗 Не чипирован"}
           </Badge>
         </div>
 
