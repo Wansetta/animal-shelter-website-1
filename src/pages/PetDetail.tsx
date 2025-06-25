@@ -278,41 +278,7 @@ const PetDetail = () => {
                 </div>
 
                 <div className="flex gap-3">
-                  <Button
-                    type="button"
-                    className="flex-1"
-                    onClick={async () => {
-                      // Формируем данные для email
-                      const subject = `Заявка на опекунство: ${pet.name}`;
-                      const body = `
-Заявка на опекунство
-
-Питомец: ${pet.name} (ID: ${pet.id})
-Имя: ${formData.name}
-Телефон: ${formData.phone}
-Email: ${formData.email}
-Адрес: ${formData.address}
-Опыт: ${formData.experience}
-Сообщение: ${formData.message}
-
-Дата: ${new Date().toLocaleString("ru-RU")}
-                      `.trim();
-
-                      // Открываем почтовый клиент
-                      const mailtoUrl = `mailto:predannost-bsk@mail.ru?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-                      window.open(mailtoUrl, "_blank");
-
-                      // Показываем уведомление
-                      toast({
-                        title: "Письмо подготовлено",
-                        description:
-                          "Откроется ваш почтовый клиент для отправки заявки",
-                        duration: 3000,
-                      });
-
-                      setShowForm(false);
-                    }}
-                  >
+                  <Button type="submit" className="flex-1">
                     Отправить заявку
                   </Button>
                   <Button
