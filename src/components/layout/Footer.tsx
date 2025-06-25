@@ -53,14 +53,6 @@ const Footer = () => {
                   Поддержать нас
                 </Link>
               </li>
-              <li>
-                <Link
-                  to="/sitemap"
-                  className="hover:text-accent-light transition-colors"
-                >
-                  Карта сайта
-                </Link>
-              </li>
             </ul>
           </div>
 
