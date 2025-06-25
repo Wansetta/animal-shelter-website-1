@@ -54,5 +54,33 @@
     "vaccination": false,
     "microchipped": true,
     "admission_date": "2024-03-12"
+  },
+  {
+    "id": "5",
+    "name": "Тоша",
+    "type": "dog",
+    "breed": "Лабрадор",
+    "age": "4 года",
+    "gender": "male",
+    "description": "Энергичный и дружелюбный лабрадор. Отлично плавает и любит воду. Идеально подходит для активных семей с детьми.",
+    "image_url": "https://images.unsplash.com/photo-1552053831-71594a27632d",
+    "status": "available",
+    "vaccination": true,
+    "microchipped": true,
+    "admission_date": "2024-01-28"
+  },
+  {
+    "id": "6",
+    "name": "Соня",
+    "type": "cat",
+    "breed": "Мейн-кун",
+    "age": "6 месяцев",
+    "gender": "female",
+    "description": "Молодая кошечка крупной породы. Очень умная и сообразительная. Быстро привыкает к новому дому и хозяевам.",
+    "image_url": "https://images.unsplash.com/photo-1574158622682-e40e69881006",
+    "status": "available",
+    "vaccination": true,
+    "microchipped": false,
+    "admission_date": "2024-03-05"
   }
 ]
