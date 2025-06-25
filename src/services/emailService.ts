@@ -37,112 +37,96 @@ interface GuardianApplicationData {
 
 class EmailService {
   private readonly targetEmail = "predannost-bsk@mail.ru";
+  private readonly formspreeId = "xpwaqgke"; // Временный ID для тестирования
 
   async sendPetApplication(data: PetApplicationData): Promise<boolean> {
-    const emailData: EmailData = {
+    const formData = {
       to: this.targetEmail,
       subject: `Заявка на питомца: ${data.petName}`,
-      html: `
-        <h2>Новая заявка на питомца</h2>
-        <p><strong>Питомец:</strong> ${data.petName} (ID: ${data.petId})</p>
-        <p><strong>Имя заявителя:</strong> ${data.userName}</p>
-        <p><strong>Телефон:</strong> ${data.userPhone}</p>
-        ${data.userEmail ? `<p><strong>Email:</strong> ${data.userEmail}</p>` : ""}
-        ${data.message ? `<p><strong>Сообщение:</strong><br>${data.message}</p>` : ""}
-        <p><strong>Дата заявки:</strong> ${new Date().toLocaleString("ru-RU")}</p>
-      `,
+      petName: data.petName,
+      petId: data.petId,
+      userName: data.userName,
+      userPhone: data.userPhone,
+      userEmail: data.userEmail || "",
+      message: data.message || "",
+      formType: "pet_application",
+      date: new Date().toLocaleString("ru-RU"),
     };
 
-    return this.sendEmail(emailData);
+    return this.sendToFormspree(formData);
   }
 
   async sendFoundPetReport(data: FoundPetData): Promise<boolean> {
-    const emailData: EmailData = {
+    const formData = {
       to: this.targetEmail,
       subject: `Найден питомец: ${data.petType}`,
-      html: `
-        <h2>Сообщение о найденном питомце</h2>
-        <p><strong>Имя сообщившего:</strong> ${data.userName}</p>
-        <p><strong>Телефон:</strong> ${data.userPhone}</p>
-        ${data.userEmail ? `<p><strong>Email:</strong> ${data.userEmail}</p>` : ""}
-        <p><strong>Место находки:</strong> ${data.location}</p>
-        <p><strong>Тип животного:</strong> ${data.petType}</p>
-        ${data.petAge ? `<p><strong>Возраст:</strong> ${data.petAge}</p>` : ""}
-        <p><strong>Описание:</strong><br>${data.description}</p>
-        ${data.additionalInfo ? `<p><strong>Дополнительная информация:</strong><br>${data.additionalInfo}</p>` : ""}
-        <p><strong>Дата сообщения:</strong> ${new Date().toLocaleString("ru-RU")}</p>
-      `,
+      userName: data.userName,
+      userPhone: data.userPhone,
+      userEmail: data.userEmail || "",
+      location: data.location,
+      petType: data.petType,
+      petAge: data.petAge || "",
+      description: data.description,
+      additionalInfo: data.additionalInfo || "",
+      formType: "found_pet",
+      date: new Date().toLocaleString("ru-RU"),
     };
 
-    return this.sendEmail(emailData);
+    return this.sendToFormspree(formData);
   }
 
   async sendGuardianApplication(
     data: GuardianApplicationData,
   ): Promise<boolean> {
-    const emailData: EmailData = {
+    const formData = {
       to: this.targetEmail,
       subject: `Заявка на опекунство: ${data.petName}`,
-      html: `
-        <h2>Заявка на опекунство</h2>
-        <p><strong>Питомец:</strong> ${data.petName} (ID: ${data.petId})</p>
-        <p><strong>Имя заявителя:</strong> ${data.userName}</p>
-        <p><strong>Телефон:</strong> ${data.userPhone}</p>
-        <p><strong>Email:</strong> ${data.userEmail}</p>
-        <p><strong>Адрес:</strong> ${data.address}</p>
-        ${data.experience ? `<p><strong>Опыт с животными:</strong><br>${data.experience}</p>` : ""}
-        ${data.message ? `<p><strong>Дополнительная информация:</strong><br>${data.message}</p>` : ""}
-        <p><strong>Дата заявки:</strong> ${new Date().toLocaleString("ru-RU")}</p>
-      `,
+      petName: data.petName,
+      petId: data.petId,
+      userName: data.userName,
+      userPhone: data.userPhone,
+      userEmail: data.userEmail,
+      address: data.address,
+      experience: data.experience || "",
+      message: data.message || "",
+      formType: "guardian_application",
+      date: new Date().toLocaleString("ru-RU"),
     };
 
-    return this.sendEmail(emailData);
+    return this.sendToFormspree(formData);
   }
 
-  private async sendEmail(emailData: EmailData): Promise<boolean> {
+  private async sendToFormspree(formData: any): Promise<boolean> {
     try {
-      // Используем EmailJS для отправки писем
       const response = await fetch(
-        "https://api.emailjs.com/api/v1.0/email/send",
+        `https://formspree.io/f/${this.formspreeId}`,
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({
-            service_id: "service_predannost",
-            template_id: "template_application",
-            user_id: "user_predannost_key",
-            template_params: {
-              to_email: emailData.to,
-              subject: emailData.subject,
-              message: this.htmlToText(emailData.html),
-              html_message: emailData.html,
-            },
-          }),
+          body: JSON.stringify(formData),
         },
       );
 
       if (response.ok) {
-        console.log("Email отправлен успешно");
+        console.log("Email отправлен через Formspree");
         return true;
       } else {
-        console.error("Ошибка отправки email:", response.statusText);
-        // Fallback на mailto для совместимости
-        return this.fallbackMailto(emailData);
+        console.error("Ошибка Formspree:", response.statusText);
+        return this.fallbackMailto(formData);
       }
     } catch (error) {
-      console.error("Ошибка отправки email:", error);
-      // Fallback на mailto для совместимости
-      return this.fallbackMailto(emailData);
+      console.error("Ошибка отправки через Formspree:", error);
+      return this.fallbackMailto(formData);
     }
   }
 
-  private fallbackMailto(emailData: EmailData): boolean {
+  private fallbackMailto(formData: any): boolean {
     try {
-      const subject = encodeURIComponent(emailData.subject);
-      const body = encodeURIComponent(this.htmlToText(emailData.html));
-      const mailtoUrl = `mailto:${emailData.to}?subject=${subject}&body=${body}`;
+      const subject = encodeURIComponent(formData.subject);
+      const body = encodeURIComponent(this.formatEmailBody(formData));
+      const mailtoUrl = `mailto:${this.targetEmail}?subject=${subject}&body=${body}`;
 
       window.open(mailtoUrl, "_blank");
       return true;
@@ -152,16 +136,37 @@ class EmailService {
     }
   }
 
-  private htmlToText(html: string): string {
-    return html
-      .replace(/<h2>/g, "\n\n")
-      .replace(/<\/h2>/g, "\n")
-      .replace(/<p><strong>/g, "\n")
-      .replace(/<\/strong>/g, ": ")
-      .replace(/<\/p>/g, "")
-      .replace(/<br>/g, "\n")
-      .replace(/<[^>]*>/g, "")
-      .trim();
+  private formatEmailBody(formData: any): string {
+    let body = `${formData.subject}\n\n`;
+
+    if (formData.formType === "pet_application") {
+      body += `Питомец: ${formData.petName} (ID: ${formData.petId})\n`;
+      body += `Имя: ${formData.userName}\n`;
+      body += `Телефон: ${formData.userPhone}\n`;
+      if (formData.userEmail) body += `Email: ${formData.userEmail}\n`;
+      if (formData.message) body += `Сообщение: ${formData.message}\n`;
+    } else if (formData.formType === "found_pet") {
+      body += `Имя: ${formData.userName}\n`;
+      body += `Телефон: ${formData.userPhone}\n`;
+      if (formData.userEmail) body += `Email: ${formData.userEmail}\n`;
+      body += `Место: ${formData.location}\n`;
+      body += `Тип: ${formData.petType}\n`;
+      if (formData.petAge) body += `Возраст: ${formData.petAge}\n`;
+      body += `Описание: ${formData.description}\n`;
+      if (formData.additionalInfo)
+        body += `Доп. инфо: ${formData.additionalInfo}\n`;
+    } else if (formData.formType === "guardian_application") {
+      body += `Питомец: ${formData.petName} (ID: ${formData.petId})\n`;
+      body += `Имя: ${formData.userName}\n`;
+      body += `Телефон: ${formData.userPhone}\n`;
+      body += `Email: ${formData.userEmail}\n`;
+      body += `Адрес: ${formData.address}\n`;
+      if (formData.experience) body += `Опыт: ${formData.experience}\n`;
+      if (formData.message) body += `Сообщение: ${formData.message}\n`;
+    }
+
+    body += `\nДата: ${formData.date}`;
+    return body;
   }
 }
 

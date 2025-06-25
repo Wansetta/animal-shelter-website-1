@@ -4,6 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { emailService } from "@/services/emailService";
 import { animalService } from "@/services/animalService";
+import { useToast } from "@/hooks/use-toast";
 
 interface GuardianFormProps {
   animalId: string;
@@ -27,6 +28,7 @@ const GuardianForm = ({
     message: "",
   });
   const [submitting, setSubmitting] = useState(false);
+  const { toast } = useToast();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -57,16 +59,27 @@ const GuardianForm = ({
 
         await animalService.reserveAnimal(animalId, guardian.id);
 
-        alert(
-          "Заявка отправлена! Если письмо не дошло автоматически, откроется почтовый клиент для ручной отправки.",
-        );
+        toast({
+          title: "Заявка отправлена!",
+          description:
+            "Мы получили вашу заявку и свяжемся с вами в ближайшее время.",
+          duration: 5000,
+        });
         onSuccess();
       } else {
-        alert("Произошла ошибка при отправке заявки. Попробуйте еще раз.");
+        toast({
+          title: "Ошибка отправки",
+          description: "Откроется почтовый клиент для ручной отправки.",
+          variant: "destructive",
+        });
       }
     } catch (error) {
       console.error("Ошибка отправки заявки:", error);
-      alert("Произошла ошибка. Попробуйте еще раз.");
+      toast({
+        title: "Произошла ошибка",
+        description: "Попробуйте еще раз или свяжитесь с нами по телефону.",
+        variant: "destructive",
+      });
     } finally {
       setSubmitting(false);
     }
