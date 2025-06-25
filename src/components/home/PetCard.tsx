@@ -9,7 +9,7 @@ export interface PetInfo {
   age: string;
   gender: "male" | "female";
   description: string;
-  image_url: string;
+  image: string;
   status: "available" | "reserved";
   vaccination: boolean;
   microchipped: boolean;
@@ -50,7 +50,7 @@ const PetCard = ({ pet }: PetCardProps) => {
     <div className="pet-card group">
       <div className="relative overflow-hidden">
         <img
-          src={pet.image_url}
+          src={pet.image}
           alt={`${pet.name} - ${petType[pet.type]}`}
           className="pet-card-image group-hover:scale-105 transition-transform duration-300"
         />
