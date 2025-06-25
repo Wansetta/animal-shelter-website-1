@@ -7,6 +7,17 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
+import {
   Select,
   SelectContent,
   SelectItem,
@@ -249,6 +260,41 @@ const Admin = () => {
                     <Button variant="outline" onClick={handleCancel}>
                       Отмена
                     </Button>
+                    <AlertDialog>
+                      <AlertDialogTrigger asChild>
+                        <Button variant="destructive">
+                          <Icon name="Trash2" size={16} className="mr-2" />
+                          Удалить
+                        </Button>
+                      </AlertDialogTrigger>
+                      <AlertDialogContent>
+                        <AlertDialogHeader>
+                          <AlertDialogTitle>
+                            Подтвердите удаление
+                          </AlertDialogTitle>
+                          <AlertDialogDescription>
+                            Вы действительно хотите удалить питомца{" "}
+                            {formData.name}? Это действие нельзя отменить.
+                          </AlertDialogDescription>
+                        </AlertDialogHeader>
+                        <AlertDialogFooter>
+                          <AlertDialogCancel>Отмена</AlertDialogCancel>
+                          <AlertDialogAction
+                            onClick={() => {
+                              const updatedPets = pets.filter(
+                                (p) => p.id !== selectedPet?.id,
+                              );
+                              setPets(updatedPets);
+                              setSelectedPet(null);
+                              setIsEditing(false);
+                            }}
+                            className="bg-red-600 hover:bg-red-700"
+                          >
+                            Удалить
+                          </AlertDialogAction>
+                        </AlertDialogFooter>
+                      </AlertDialogContent>
+                    </AlertDialog>
                   </div>
                 </div>
               ) : (
