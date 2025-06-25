@@ -81,7 +81,10 @@ const PetCard = ({ pet }: PetCardProps) => {
 
         <p className="text-gray-700 mb-4 line-clamp-2">{pet.description}</p>
 
-        <div className="text-xs flex items-center gap-3 mt-2">
+        <div
+          className="text-xs flex items-center gap-3 mt-2"
+          style={{ display: "none" }}
+        >
           <Badge
             className={
               pet.vaccination
