@@ -177,7 +177,12 @@ const FoundPet = () => {
                     <label className="block text-sm font-medium text-gray-700 mb-1">
                       Фотографии животного
                     </label>
-                    <div className="border border-dashed border-gray-300 rounded-lg p-6 text-center cursor-pointer hover:bg-gray-50 transition-colors">
+                    <div
+                      className="border border-dashed border-gray-300 rounded-lg p-6 text-center cursor-pointer hover:bg-gray-50 transition-colors"
+                      onClick={() =>
+                        document.getElementById("photo-upload")?.click()
+                      }
+                    >
                       <Upload className="h-10 w-10 text-gray-400 mx-auto mb-2" />
                       <p className="text-gray-600">
                         Перетащите фотографии сюда или нажмите, чтобы выбрать
@@ -187,10 +192,18 @@ const FoundPet = () => {
                         JPG, PNG или GIF. Максимум 5 файлов по 5 МБ каждый.
                       </p>
                       <input
+                        id="photo-upload"
                         type="file"
-                        className="hidden"
+                        accept="image/png,image/jpeg,image/jpg,image/gif,image/webp"
                         multiple
-                        accept="image/*"
+                        className="hidden"
+                        onChange={(e) => {
+                          const files = e.target.files;
+                          if (files) {
+                            console.log("Выбрано файлов:", files.length);
+                            // Здесь можно добавить логику обработки файлов
+                          }
+                        }}
                       />
                     </div>
                   </div>
