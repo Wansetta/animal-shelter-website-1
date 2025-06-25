@@ -162,7 +162,7 @@ const FoundPet = () => {
                     </div>
 
                     {selectedFiles.length > 0 && (
-                      <div className="mt-4 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+                      <div className="">
                         {selectedFiles.map((file, index) => (
                           <div key={index} className="relative group">
                             <div className="aspect-square rounded-lg overflow-hidden bg-gray-100">
