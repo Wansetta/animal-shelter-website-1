@@ -59,7 +59,9 @@ const Admin = () => {
     microchipped: false,
     admission_date: "",
     status: "available" as const,
+    image: "",
   });
+  const [newImage, setNewImage] = useState<string>("");
 
   useEffect(() => {
     loadAnimals();
@@ -85,7 +87,9 @@ const Admin = () => {
       microchipped: animal.microchipped,
       admission_date: animal.admission_date,
       status: animal.status,
+      image: animal.image || "",
     });
+    setNewImage("");
   };
 
   const handleSave = () => {
@@ -95,6 +99,7 @@ const Admin = () => {
 
   const handleCancel = () => {
     setSelectedAnimal(null);
+    setNewImage("");
   };
 
   const handleAddAnimal = () => {
@@ -130,6 +135,18 @@ const Admin = () => {
       reader.onload = (e) => {
         const result = e.target?.result as string;
         setNewAnimalData({ ...newAnimalData, image: result });
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleEditImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const result = e.target?.result as string;
+        setNewImage(result);
       };
       reader.readAsDataURL(file);
     }
@@ -510,6 +527,55 @@ const Admin = () => {
                       />
                       <Label htmlFor="microchipped">Чипирован</Label>
                     </div>
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="edit-image">Фото питомца</Label>
+
+                    {/* Текущее изображение */}
+                    {formData.image && !newImage && (
+                      <div className="space-y-2">
+                        <p className="text-sm text-gray-600">Текущее фото:</p>
+                        <img
+                          src={formData.image}
+                          alt="Текущее фото"
+                          className="w-32 h-32 object-cover rounded-lg border"
+                        />
+                      </div>
+                    )}
+
+                    {/* Новое изображение */}
+                    {newImage && (
+                      <div className="space-y-2">
+                        <p className="text-sm text-gray-600">Новое фото:</p>
+                        <img
+                          src={newImage}
+                          alt="Новое фото"
+                          className="w-32 h-32 object-cover rounded-lg border"
+                        />
+                      </div>
+                    )}
+
+                    <Input
+                      id="edit-image"
+                      type="file"
+                      accept="image/*"
+                      onChange={handleEditImageUpload}
+                      className="cursor-pointer"
+                    />
+
+                    {newImage && (
+                      <Button
+                        type="button"
+                        variant="outline"
+                        size="sm"
+                        onClick={() => setNewImage("")}
+                        className="flex items-center gap-2"
+                      >
+                        <Icon name="X" size={14} />
+                        Отменить новое фото
+                      </Button>
+                    )}
                   </div>
 
                   <div className="flex gap-2 pt-4">
