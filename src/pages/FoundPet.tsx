@@ -8,6 +8,7 @@ import MapSelector from "@/components/MapSelector";
 
 const FoundPet = () => {
   const [formSubmitted, setFormSubmitted] = useState(false);
+  const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const [selectedLocation, setSelectedLocation] = useState<{
     lat: number;
     lng: number;
@@ -99,6 +100,40 @@ const FoundPet = () => {
                         placeholder="+7 (___) ___-__-__"
                       />
                     </div>
+
+                    {/* Предварительный просмотр изображений */}
+                    {selectedFiles.length > 0 && (
+                      <div className="mt-4">
+                        <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+                          {selectedFiles.map((file, index) => (
+                            <div key={index} className="relative group">
+                              <img
+                                src={URL.createObjectURL(file)}
+                                alt={`Предварительный просмотр ${index + 1}`}
+                                className="w-full h-24 object-cover rounded-lg border"
+                              />
+                              <button
+                                type="button"
+                                onClick={() => {
+                                  setSelectedFiles((prev) =>
+                                    prev.filter((_, i) => i !== index),
+                                  );
+                                }}
+                                className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs hover:bg-red-600 transition-colors"
+                              >
+                                ×
+                              </button>
+                              <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 text-white text-xs p-1 rounded-b-lg truncate">
+                                {file.name}
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                        <p className="text-sm text-gray-500 mt-2">
+                          Выбрано файлов: {selectedFiles.length} из 5
+                        </p>
+                      </div>
+                    )}
                   </div>
 
                   <div className="mb-6">
@@ -132,6 +167,40 @@ const FoundPet = () => {
                         className="w-full"
                       />
                     </div>
+
+                    {/* Предварительный просмотр изображений */}
+                    {selectedFiles.length > 0 && (
+                      <div className="mt-4">
+                        <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+                          {selectedFiles.map((file, index) => (
+                            <div key={index} className="relative group">
+                              <img
+                                src={URL.createObjectURL(file)}
+                                alt={`Предварительный просмотр ${index + 1}`}
+                                className="w-full h-24 object-cover rounded-lg border"
+                              />
+                              <button
+                                type="button"
+                                onClick={() => {
+                                  setSelectedFiles((prev) =>
+                                    prev.filter((_, i) => i !== index),
+                                  );
+                                }}
+                                className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs hover:bg-red-600 transition-colors"
+                              >
+                                ×
+                              </button>
+                              <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 text-white text-xs p-1 rounded-b-lg truncate">
+                                {file.name}
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                        <p className="text-sm text-gray-500 mt-2">
+                          Выбрано файлов: {selectedFiles.length} из 5
+                        </p>
+                      </div>
+                    )}
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
@@ -200,12 +269,48 @@ const FoundPet = () => {
                         onChange={(e) => {
                           const files = e.target.files;
                           if (files) {
-                            console.log("Выбрано файлов:", files.length);
-                            // Здесь можно добавить логику обработки файлов
+                            const fileArray = Array.from(files);
+                            setSelectedFiles((prev) =>
+                              [...prev, ...fileArray].slice(0, 5),
+                            );
                           }
                         }}
                       />
                     </div>
+
+                    {/* Предварительный просмотр изображений */}
+                    {selectedFiles.length > 0 && (
+                      <div className="mt-4">
+                        <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+                          {selectedFiles.map((file, index) => (
+                            <div key={index} className="relative group">
+                              <img
+                                src={URL.createObjectURL(file)}
+                                alt={`Предварительный просмотр ${index + 1}`}
+                                className="w-full h-24 object-cover rounded-lg border"
+                              />
+                              <button
+                                type="button"
+                                onClick={() => {
+                                  setSelectedFiles((prev) =>
+                                    prev.filter((_, i) => i !== index),
+                                  );
+                                }}
+                                className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs hover:bg-red-600 transition-colors"
+                              >
+                                ×
+                              </button>
+                              <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 text-white text-xs p-1 rounded-b-lg truncate">
+                                {file.name}
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                        <p className="text-sm text-gray-500 mt-2">
+                          Выбрано файлов: {selectedFiles.length} из 5
+                        </p>
+                      </div>
+                    )}
                   </div>
 
                   <div className="mb-6">
