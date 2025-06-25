@@ -7,6 +7,13 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import {
   AlertDialog,
   AlertDialogAction,
   AlertDialogCancel,
@@ -30,6 +37,19 @@ import { Animal, animalService } from "@/services/animalService";
 const Admin = () => {
   const [animals, setAnimals] = useState<Animal[]>([]);
   const [selectedAnimal, setSelectedAnimal] = useState<Animal | null>(null);
+  const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
+  const [newAnimalData, setNewAnimalData] = useState({
+    name: "",
+    type: "dog" as "dog" | "cat" | "other",
+    breed: "",
+    age: "",
+    gender: "male" as "male" | "female",
+    description: "",
+    image: "",
+    vaccination: false,
+    microchipped: false,
+    admission_date: "",
+  });
   const [formData, setFormData] = useState({
     name: "",
     breed: "",
@@ -77,6 +97,44 @@ const Admin = () => {
     setSelectedAnimal(null);
   };
 
+  const handleAddAnimal = () => {
+    // Генерируем новый ID
+    const newId = Date.now().toString();
+    const newAnimal: Animal = {
+      ...newAnimalData,
+      id: newId,
+      status: "available",
+      dateAdded: new Date().toISOString(),
+    };
+
+    setAnimals([...animals, newAnimal]);
+    setNewAnimalData({
+      name: "",
+      type: "dog",
+      breed: "",
+      age: "",
+      gender: "male",
+      description: "",
+      image: "",
+      vaccination: false,
+      microchipped: false,
+      admission_date: "",
+    });
+    setIsAddDialogOpen(false);
+  };
+
+  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const result = e.target?.result as string;
+        setNewAnimalData({ ...newAnimalData, image: result });
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gray-50">
       <Header />
@@ -98,10 +156,209 @@ const Admin = () => {
             <CardHeader>
               <div className="flex justify-between items-center">
                 <CardTitle>Каталог питомцев</CardTitle>
-                <Button className="flex items-center gap-2">
-                  <Icon name="Plus" size={16} />
-                  Добавить питомца
-                </Button>
+                <Dialog
+                  open={isAddDialogOpen}
+                  onOpenChange={setIsAddDialogOpen}
+                >
+                  <DialogTrigger asChild>
+                    <Button className="flex items-center gap-2">
+                      <Icon name="Plus" size={16} />
+                      Добавить питомца
+                    </Button>
+                  </DialogTrigger>
+                  <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+                    <DialogHeader>
+                      <DialogTitle>Добавить нового питомца</DialogTitle>
+                    </DialogHeader>
+                    <div className="grid gap-4 py-4">
+                      <div className="grid grid-cols-2 gap-4">
+                        <div className="space-y-2">
+                          <Label htmlFor="name">Имя</Label>
+                          <Input
+                            id="name"
+                            value={newAnimalData.name}
+                            onChange={(e) =>
+                              setNewAnimalData({
+                                ...newAnimalData,
+                                name: e.target.value,
+                              })
+                            }
+                            placeholder="Имя питомца"
+                          />
+                        </div>
+                        <div className="space-y-2">
+                          <Label htmlFor="type">Тип</Label>
+                          <Select
+                            value={newAnimalData.type}
+                            onValueChange={(value: "dog" | "cat" | "other") =>
+                              setNewAnimalData({
+                                ...newAnimalData,
+                                type: value,
+                              })
+                            }
+                          >
+                            <SelectTrigger>
+                              <SelectValue placeholder="Выберите тип" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="dog">Собака</SelectItem>
+                              <SelectItem value="cat">Кошка</SelectItem>
+                              <SelectItem value="other">Другое</SelectItem>
+                            </SelectContent>
+                          </Select>
+                        </div>
+                      </div>
+
+                      <div className="grid grid-cols-2 gap-4">
+                        <div className="space-y-2">
+                          <Label htmlFor="breed">Порода</Label>
+                          <Input
+                            id="breed"
+                            value={newAnimalData.breed}
+                            onChange={(e) =>
+                              setNewAnimalData({
+                                ...newAnimalData,
+                                breed: e.target.value,
+                              })
+                            }
+                            placeholder="Порода"
+                          />
+                        </div>
+                        <div className="space-y-2">
+                          <Label htmlFor="age">Возраст</Label>
+                          <Input
+                            id="age"
+                            value={newAnimalData.age}
+                            onChange={(e) =>
+                              setNewAnimalData({
+                                ...newAnimalData,
+                                age: e.target.value,
+                              })
+                            }
+                            placeholder="Возраст"
+                          />
+                        </div>
+                      </div>
+
+                      <div className="grid grid-cols-2 gap-4">
+                        <div className="space-y-2">
+                          <Label htmlFor="gender">Пол</Label>
+                          <Select
+                            value={newAnimalData.gender}
+                            onValueChange={(value: "male" | "female") =>
+                              setNewAnimalData({
+                                ...newAnimalData,
+                                gender: value,
+                              })
+                            }
+                          >
+                            <SelectTrigger>
+                              <SelectValue placeholder="Выберите пол" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="male">Мужской</SelectItem>
+                              <SelectItem value="female">Женский</SelectItem>
+                            </SelectContent>
+                          </Select>
+                        </div>
+                        <div className="space-y-2">
+                          <Label htmlFor="admission_date">
+                            Дата поступления
+                          </Label>
+                          <Input
+                            id="admission_date"
+                            type="date"
+                            value={newAnimalData.admission_date}
+                            onChange={(e) =>
+                              setNewAnimalData({
+                                ...newAnimalData,
+                                admission_date: e.target.value,
+                              })
+                            }
+                          />
+                        </div>
+                      </div>
+
+                      <div className="space-y-2">
+                        <Label htmlFor="description">Описание</Label>
+                        <Textarea
+                          id="description"
+                          value={newAnimalData.description}
+                          onChange={(e) =>
+                            setNewAnimalData({
+                              ...newAnimalData,
+                              description: e.target.value,
+                            })
+                          }
+                          placeholder="Описание питомца"
+                          rows={3}
+                        />
+                      </div>
+
+                      <div className="space-y-2">
+                        <Label htmlFor="image">Фото питомца</Label>
+                        <Input
+                          id="image"
+                          type="file"
+                          accept="image/*"
+                          onChange={handleImageUpload}
+                          className="cursor-pointer"
+                        />
+                        {newAnimalData.image && (
+                          <div className="mt-2">
+                            <img
+                              src={newAnimalData.image}
+                              alt="Предпросмотр"
+                              className="w-32 h-32 object-cover rounded-lg border"
+                            />
+                          </div>
+                        )}
+                      </div>
+
+                      <div className="grid grid-cols-2 gap-4">
+                        <div className="flex items-center space-x-2">
+                          <Checkbox
+                            id="vaccination"
+                            checked={newAnimalData.vaccination}
+                            onCheckedChange={(checked) =>
+                              setNewAnimalData({
+                                ...newAnimalData,
+                                vaccination: checked as boolean,
+                              })
+                            }
+                          />
+                          <Label htmlFor="vaccination">Вакцинирован</Label>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                          <Checkbox
+                            id="microchipped"
+                            checked={newAnimalData.microchipped}
+                            onCheckedChange={(checked) =>
+                              setNewAnimalData({
+                                ...newAnimalData,
+                                microchipped: checked as boolean,
+                              })
+                            }
+                          />
+                          <Label htmlFor="microchipped">Чипирован</Label>
+                        </div>
+                      </div>
+
+                      <div className="flex gap-2 pt-4">
+                        <Button onClick={handleAddAnimal} className="flex-1">
+                          Добавить питомца
+                        </Button>
+                        <Button
+                          variant="outline"
+                          onClick={() => setIsAddDialogOpen(false)}
+                          className="flex-1"
+                        >
+                          Отмена
+                        </Button>
+                      </div>
+                    </div>
+                  </DialogContent>
+                </Dialog>
               </div>
             </CardHeader>
             <CardContent>
