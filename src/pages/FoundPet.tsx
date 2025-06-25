@@ -100,6 +100,7 @@ const FoundPet = () => {
                         placeholder="+7 (___) ___-__-__"
                       />
                     </div>
+                  </div>
 
                   <div className="mb-6">
                     <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -132,6 +133,7 @@ const FoundPet = () => {
                         className="w-full"
                       />
                     </div>
+                  </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                     <div>
