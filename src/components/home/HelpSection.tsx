@@ -24,7 +24,7 @@ const HelpSection = () => {
               большая помощь!
             </p>
             <Link
-              to="/#pets"
+              to="/catalog"
               className="text-primary hover:text-primary-dark font-medium"
             >
               Посмотреть питомцев →
