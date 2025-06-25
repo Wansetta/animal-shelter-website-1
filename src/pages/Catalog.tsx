@@ -173,6 +173,8 @@ const Catalog = () => {
                   description: pet.description || "",
                   image: pet.image,
                   status: pet.status,
+                  vaccination: pet.vaccination,
+                  microchipped: pet.microchipped,
                 }}
               />
             ))}
