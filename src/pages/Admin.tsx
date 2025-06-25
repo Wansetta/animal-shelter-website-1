@@ -33,9 +33,10 @@ import {
 } from "@/components/ui/select";
 import Icon from "@/components/ui/icon";
 import { Animal, animalService } from "@/services/animalService";
+import { useAnimals } from "@/hooks/useAnimals";
 
 const Admin = () => {
-  const [animals, setAnimals] = useState<Animal[]>([]);
+  const { animals, loading } = useAnimals();
   const [selectedAnimal, setSelectedAnimal] = useState<Animal | null>(null);
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
   const [newAnimalData, setNewAnimalData] = useState({
@@ -63,19 +64,6 @@ const Admin = () => {
   });
   const [newImage, setNewImage] = useState<string>("");
 
-  useEffect(() => {
-    loadAnimals();
-  }, []);
-
-  const loadAnimals = async () => {
-    try {
-      const data = await animalService.getAllAnimals();
-      setAnimals(data);
-    } catch (error) {
-      console.error("Ошибка загрузки животных:", error);
-    }
-  };
-
   const selectAnimal = (animal: Animal) => {
     setSelectedAnimal(animal);
     setFormData({
@@ -92,9 +80,17 @@ const Admin = () => {
     setNewImage("");
   };
 
-  const handleSave = () => {
-    console.log("Сохранение данных:", formData);
+  const handleSave = async () => {
+    if (!selectedAnimal) return;
+
+    const updatedData = {
+      ...formData,
+      image: newImage || formData.image,
+    };
+
+    await animalService.updateAnimal(selectedAnimal.id, updatedData);
     setSelectedAnimal(null);
+    setNewImage("");
   };
 
   const handleCancel = () => {
@@ -102,17 +98,13 @@ const Admin = () => {
     setNewImage("");
   };
 
-  const handleAddAnimal = () => {
-    // Генерируем новый ID
-    const newId = Date.now().toString();
-    const newAnimal: Animal = {
+  const handleAddAnimal = async () => {
+    const newAnimal = {
       ...newAnimalData,
-      id: newId,
-      status: "available",
-      dateAdded: new Date().toISOString(),
+      status: "available" as const,
     };
 
-    setAnimals([...animals, newAnimal]);
+    await animalService.createAnimal(newAnimal);
     setNewAnimalData({
       name: "",
       type: "dog",
@@ -126,6 +118,13 @@ const Admin = () => {
       admission_date: "",
     });
     setIsAddDialogOpen(false);
+  };
+
+  const handleDeleteAnimal = async () => {
+    if (!selectedAnimal) return;
+
+    await animalService.deleteAnimal(selectedAnimal.id);
+    setSelectedAnimal(null);
   };
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -602,14 +601,7 @@ const Admin = () => {
                         <AlertDialogFooter>
                           <AlertDialogCancel>Отмена</AlertDialogCancel>
                           <AlertDialogAction
-                            onClick={() => {
-                              const updatedPets = pets.filter(
-                                (p) => p.id !== selectedPet?.id,
-                              );
-                              setPets(updatedPets);
-                              setSelectedPet(null);
-                              setIsEditing(false);
-                            }}
+                            onClick={handleDeleteAnimal}
                             className="bg-red-600 hover:bg-red-700"
                           >
                             Удалить

@@ -11,27 +11,14 @@ import {
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 import Icon from "@/components/ui/icon";
-import { Animal, animalService } from "@/services/animalService";
+import { useAnimals } from "@/hooks/useAnimals";
 
 const Catalog = () => {
-  const [pets, setPets] = useState<Animal[]>([]);
+  const { animals: pets, loading } = useAnimals();
   const [typeFilter, setTypeFilter] = useState<string>("all");
   const [genderFilter, setGenderFilter] = useState<string>("all");
   const [statusFilter, setStatusFilter] = useState<string>("all");
   const [sortBy, setSortBy] = useState<string>("name");
-
-  useEffect(() => {
-    loadAnimals();
-  }, []);
-
-  const loadAnimals = async () => {
-    try {
-      const data = await animalService.getAllAnimals();
-      setPets(data);
-    } catch (error) {
-      console.error("Ошибка загрузки животных:", error);
-    }
-  };
 
   // Функция фильтрации и сортировки
   const getFilteredAndSortedPets = () => {
@@ -65,6 +52,24 @@ const Catalog = () => {
     setStatusFilter("all");
     setSortBy("name");
   };
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gray-50">
+        <Header />
+        <div className="flex items-center justify-center py-12">
+          <div className="text-center">
+            <Icon
+              name="Loader2"
+              size={48}
+              className="animate-spin mx-auto mb-4 text-gray-400"
+            />
+            <p className="text-gray-600">Загрузка питомцев...</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gray-50">
