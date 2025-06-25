@@ -81,13 +81,25 @@ const PetCard = ({ pet }: PetCardProps) => {
 
         <p className="text-gray-700 mb-4 line-clamp-2">{pet.description}</p>
 
-        <div className="text-xs text-gray-600 flex items-center gap-3 mt-2">
-          <span className="flex items-center gap-1">
+        <div className="text-xs flex items-center gap-3 mt-2">
+          <Badge
+            className={
+              pet.vaccination
+                ? "bg-green-100 text-green-800"
+                : "bg-red-100 text-red-800"
+            }
+          >
             {pet.vaccination ? "💉 Привит" : "💉 Не привит"}
-          </span>
-          <span className="flex items-center gap-1">
-            {pet.microchipped ? "🔗 Чипирован" : "🔗 Без чипа"}
-          </span>
+          </Badge>
+          <Badge
+            className={
+              pet.microchipped
+                ? "bg-green-100 text-green-800"
+                : "bg-red-100 text-red-800"
+            }
+          >
+            {pet.microchipped ? "🔗 Чипирован" : "🔗 Не чипирован"}
+          </Badge>
         </div>
 
         <Link
