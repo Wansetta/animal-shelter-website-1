@@ -100,6 +100,33 @@ const FoundPet = () => {
                         placeholder="+7 (___) ___-__-__"
                       />
                     </div>
+
+                    {selectedFiles.length > 0 && (
+                      <div className="mt-4 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+                        {selectedFiles.map((file, index) => (
+                          <div key={index} className="relative group">
+                            <div className="aspect-square rounded-lg overflow-hidden bg-gray-100">
+                              <img
+                                src={URL.createObjectURL(file)}
+                                alt={`Фото ${index + 1}`}
+                                className="w-full h-full object-cover"
+                              />
+                            </div>
+                            <button
+                              type="button"
+                              onClick={() => {
+                                setSelectedFiles((prev) =>
+                                  prev.filter((_, i) => i !== index),
+                                );
+                              }}
+                              className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm hover:bg-red-600 transition-colors"
+                            >
+                              ×
+                            </button>
+                          </div>
+                        ))}
+                      </div>
+                    )}
                   </div>
 
                   <div className="mb-6">
@@ -161,6 +188,33 @@ const FoundPet = () => {
                         <option value="adult">Взрослое животное</option>
                       </select>
                     </div>
+
+                    {selectedFiles.length > 0 && (
+                      <div className="mt-4 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+                        {selectedFiles.map((file, index) => (
+                          <div key={index} className="relative group">
+                            <div className="aspect-square rounded-lg overflow-hidden bg-gray-100">
+                              <img
+                                src={URL.createObjectURL(file)}
+                                alt={`Фото ${index + 1}`}
+                                className="w-full h-full object-cover"
+                              />
+                            </div>
+                            <button
+                              type="button"
+                              onClick={() => {
+                                setSelectedFiles((prev) =>
+                                  prev.filter((_, i) => i !== index),
+                                );
+                              }}
+                              className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm hover:bg-red-600 transition-colors"
+                            >
+                              ×
+                            </button>
+                          </div>
+                        ))}
+                      </div>
+                    )}
                   </div>
 
                   <div className="mb-6">
@@ -209,6 +263,33 @@ const FoundPet = () => {
                         }}
                       />
                     </div>
+
+                    {selectedFiles.length > 0 && (
+                      <div className="mt-4 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+                        {selectedFiles.map((file, index) => (
+                          <div key={index} className="relative group">
+                            <div className="aspect-square rounded-lg overflow-hidden bg-gray-100">
+                              <img
+                                src={URL.createObjectURL(file)}
+                                alt={`Фото ${index + 1}`}
+                                className="w-full h-full object-cover"
+                              />
+                            </div>
+                            <button
+                              type="button"
+                              onClick={() => {
+                                setSelectedFiles((prev) =>
+                                  prev.filter((_, i) => i !== index),
+                                );
+                              }}
+                              className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm hover:bg-red-600 transition-colors"
+                            >
+                              ×
+                            </button>
+                          </div>
+                        ))}
+                      </div>
+                    )}
                   </div>
 
                   <div className="mb-6">
