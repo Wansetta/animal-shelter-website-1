@@ -81,37 +81,25 @@ const PetCard = ({ pet }: PetCardProps) => {
 
         <p className="text-gray-700 mb-4 line-clamp-2">{pet.description}</p>
 
-        <div className="space-y-2 mb-4">
-          <div className="flex items-center justify-between text-sm">
-            <span className="text-gray-600">Статус вакцинации:</span>
-            <Badge
-              className={
-                pet.vaccination
-                  ? "bg-green-100 text-green-800"
-                  : "bg-red-100 text-red-800"
-              }
-            >
-              {pet.vaccination ? "💉 Привит" : "💉 Не привит"}
-            </Badge>
-          </div>
-          <div className="flex items-center justify-between text-sm">
-            <span className="text-gray-600">Чипирование:</span>
-            <Badge
-              className={
-                pet.microchipped
-                  ? "bg-green-100 text-green-800"
-                  : "bg-red-100 text-red-800"
-              }
-            >
-              {pet.microchipped ? "🔗 Чипирован" : "🔗 Не чипирован"}
-            </Badge>
-          </div>
-          <div className="flex items-center justify-between text-sm">
-            <span className="text-gray-600">Дата поступления:</span>
-            <span className="text-gray-800">
-              {new Date(pet.admission_date).toLocaleDateString("ru-RU")}
-            </span>
-          </div>
+        <div className="text-xs flex items-center gap-3 mt-2">
+          <Badge
+            className={
+              pet.vaccination
+                ? "bg-green-100 text-green-800"
+                : "bg-red-100 text-red-800"
+            }
+          >
+            {pet.vaccination ? "💉 Привит" : "💉 Не привит"}
+          </Badge>
+          <Badge
+            className={
+              pet.microchipped
+                ? "bg-green-100 text-green-800"
+                : "bg-red-100 text-red-800"
+            }
+          >
+            {pet.microchipped ? "🔗 Чипирован" : "🔗 Не чипирован"}
+          </Badge>
         </div>
 
         <Link

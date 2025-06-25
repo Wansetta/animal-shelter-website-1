@@ -101,37 +101,30 @@ const FoundPet = () => {
                       />
                     </div>
 
-                    {/* Предварительный просмотр изображений */}
                     {selectedFiles.length > 0 && (
-                      <div className="mt-4">
-                        <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
-                          {selectedFiles.map((file, index) => (
-                            <div key={index} className="relative group">
+                      <div className="mt-4 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+                        {selectedFiles.map((file, index) => (
+                          <div key={index} className="relative group">
+                            <div className="aspect-square rounded-lg overflow-hidden bg-gray-100">
                               <img
                                 src={URL.createObjectURL(file)}
-                                alt={`Предварительный просмотр ${index + 1}`}
-                                className="w-full h-24 object-cover rounded-lg border"
+                                alt={`Фото ${index + 1}`}
+                                className="w-full h-full object-cover"
                               />
-                              <button
-                                type="button"
-                                onClick={() => {
-                                  setSelectedFiles((prev) =>
-                                    prev.filter((_, i) => i !== index),
-                                  );
-                                }}
-                                className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs hover:bg-red-600 transition-colors"
-                              >
-                                ×
-                              </button>
-                              <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 text-white text-xs p-1 rounded-b-lg truncate">
-                                {file.name}
-                              </div>
                             </div>
-                          ))}
-                        </div>
-                        <p className="text-sm text-gray-500 mt-2">
-                          Выбрано файлов: {selectedFiles.length} из 5
-                        </p>
+                            <button
+                              type="button"
+                              onClick={() => {
+                                setSelectedFiles((prev) =>
+                                  prev.filter((_, i) => i !== index),
+                                );
+                              }}
+                              className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm hover:bg-red-600 transition-colors"
+                            >
+                              ×
+                            </button>
+                          </div>
+                        ))}
                       </div>
                     )}
                   </div>
@@ -195,6 +188,33 @@ const FoundPet = () => {
                         <option value="adult">Взрослое животное</option>
                       </select>
                     </div>
+
+                    {selectedFiles.length > 0 && (
+                      <div className="mt-4 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+                        {selectedFiles.map((file, index) => (
+                          <div key={index} className="relative group">
+                            <div className="aspect-square rounded-lg overflow-hidden bg-gray-100">
+                              <img
+                                src={URL.createObjectURL(file)}
+                                alt={`Фото ${index + 1}`}
+                                className="w-full h-full object-cover"
+                              />
+                            </div>
+                            <button
+                              type="button"
+                              onClick={() => {
+                                setSelectedFiles((prev) =>
+                                  prev.filter((_, i) => i !== index),
+                                );
+                              }}
+                              className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm hover:bg-red-600 transition-colors"
+                            >
+                              ×
+                            </button>
+                          </div>
+                        ))}
+                      </div>
+                    )}
                   </div>
 
                   <div className="mb-6">
@@ -244,37 +264,30 @@ const FoundPet = () => {
                       />
                     </div>
 
-                    {/* Предварительный просмотр изображений */}
                     {selectedFiles.length > 0 && (
-                      <div className="mt-4">
-                        <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
-                          {selectedFiles.map((file, index) => (
-                            <div key={index} className="relative group">
+                      <div className="mt-4 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+                        {selectedFiles.map((file, index) => (
+                          <div key={index} className="relative group">
+                            <div className="aspect-square rounded-lg overflow-hidden bg-gray-100">
                               <img
                                 src={URL.createObjectURL(file)}
-                                alt={`Предварительный просмотр ${index + 1}`}
-                                className="w-full h-24 object-cover rounded-lg border"
+                                alt={`Фото ${index + 1}`}
+                                className="w-full h-full object-cover"
                               />
-                              <button
-                                type="button"
-                                onClick={() => {
-                                  setSelectedFiles((prev) =>
-                                    prev.filter((_, i) => i !== index),
-                                  );
-                                }}
-                                className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs hover:bg-red-600 transition-colors"
-                              >
-                                ×
-                              </button>
-                              <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 text-white text-xs p-1 rounded-b-lg truncate">
-                                {file.name}
-                              </div>
                             </div>
-                          ))}
-                        </div>
-                        <p className="text-sm text-gray-500 mt-2">
-                          Выбрано файлов: {selectedFiles.length} из 5
-                        </p>
+                            <button
+                              type="button"
+                              onClick={() => {
+                                setSelectedFiles((prev) =>
+                                  prev.filter((_, i) => i !== index),
+                                );
+                              }}
+                              className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm hover:bg-red-600 transition-colors"
+                            >
+                              ×
+                            </button>
+                          </div>
+                        ))}
                       </div>
                     )}
                   </div>
